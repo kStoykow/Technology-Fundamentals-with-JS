@@ -8,20 +8,16 @@ function solve(input) {
             movies.push({ name: line.join(' ') });
 
         } else if (line.includes('directedBy')) {
-            let indexOf = line.indexOf('directedBy');
-            let name = line.slice(0, indexOf).join(' ');
-            let director = line.slice(indexOf + 1).join(' ');
-            let isThere = movies.find(m => m.name == name);
+            let [name, director] = line.join(' ').split(' directedBy ');
             movies.forEach(movie => {
                 if (movie.name == name) {
                     movie.director = director;
                 }
             });
 
+
         } else {
-            let indexOf = line.indexOf('onDate');
-            let name = line.slice(0, indexOf).join(' ');
-            let date = line.slice(indexOf + 1).join(' ');
+            let [name, date] = line.join(' ').split(' onDate ');
 
             movies.forEach(movie => {
                 if (movie.name == name) {
