@@ -1,1 +1,1 @@
-SoftUni-Courses - Technology Fundamentals with JS
+SoftUni-Courses - JS Fundamentals 
