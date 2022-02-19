@@ -1,1 +1,1 @@
-SoftUni-Courses - JS Fundamentals 
+SoftUni-Courses - JS Fundamentals!
