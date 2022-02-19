@@ -1,7 +1,3 @@
-function sumOfFirstAndLastNum(arrayOfNumbers) {
-    let sum = Number(arrayOfNumbers[0]) + Number(arrayOfNumbers[arrayOfNumbers.length - 1]);
-    console.log(sum);
-
-
-
+function sumOfFirstAndLastNum(arr) {
+    return Number(arr[0]) + Number(arr[arr.length - 1]);
 } 
