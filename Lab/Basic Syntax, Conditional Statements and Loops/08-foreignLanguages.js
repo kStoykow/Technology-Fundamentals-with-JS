@@ -1,9 +1,13 @@
 function whatLanguage(country) {
-    if (country === 'England' || country === 'USA') {
-        console.log('English');
-    } else if (country === 'Spain' || country === 'Argentina' || country === 'Mexico') {
-        console.log('Spanish');
-    } else {
-        console.log('unknown');
+    let languageMap = {
+        'England': 'English',
+        'USA': 'English',
+        'Spain': 'Spanish',
+        'Argentina': 'Spanish',
+        'Mexico': 'Spanish',
+        'unknown': 'unknown'
     }
+
+    return languageMap[languageMap[country] ? country : 'unknown'];
 }
+console.log(whatLanguage('USA'));

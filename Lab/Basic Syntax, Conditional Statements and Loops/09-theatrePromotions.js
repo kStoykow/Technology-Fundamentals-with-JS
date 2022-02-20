@@ -1,6 +1,6 @@
 function theatreTickets(day, age) {
     let ticketPrice = 0;
-
+    
     if (age >= 0 && age <= 18) {
 
         if (day === 'Weekday') {
@@ -40,3 +40,4 @@ function theatreTickets(day, age) {
         console.log('Error!');
     }
 }
+theatreTickets()

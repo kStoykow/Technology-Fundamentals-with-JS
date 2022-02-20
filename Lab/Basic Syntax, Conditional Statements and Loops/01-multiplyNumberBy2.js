@@ -1,3 +1,3 @@
-function multiply(number) {
-    console.log(number * 2);
+function multiply(x) {
+    return x * 2;
 }

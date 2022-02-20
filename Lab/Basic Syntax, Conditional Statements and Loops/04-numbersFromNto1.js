@@ -1,5 +1,7 @@
-function print(number) {
-    for (let i = number; i > 0; i--) {
-        console.log(i);
+function print(x) {
+    let res = 0;
+    for (let i = x; i > 0; i--) {
+        res += i;
     }
+    return res;
 }

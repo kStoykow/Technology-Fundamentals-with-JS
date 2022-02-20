@@ -1,7 +1,8 @@
-function isExcellent(grade) {
-    if (grade >= 5.5) {
-        console.log('Excellent');
-    } else {
-        console.log('Not excellent');
+function isExcellent(x) {
+    let isExcellent = {
+        true: 'Excellent',
+        false: 'Not excellent'
     }
+    
+    return isExcellent[x >= 5.5];
 }

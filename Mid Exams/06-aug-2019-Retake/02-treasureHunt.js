@@ -1,54 +1,37 @@
-function solve(input) {
-    let inventory = input.shift().split('|');
-    input.pop();
+function solve(arr) {
+    let inventory = arr[0].split('|');
+    let commands = arr.slice(1);
+    let result = '';
 
-    input.forEach(e => {
-        e = e.split(' ');
+    for (let i = 0; i < commands.length; i++) {
+        let currCommand = commands[i].split(' ');
 
-        if (e.includes('Loot')) {
-            e.shift();
-
-            for (let i = 0; i < e.length; i++) {
-                if (!inventory.includes(e[i])) {
-                    inventory.unshift(e[i]);
-                }
-            }
-
-        } else if (e.includes('Drop')) {
-            let [toDo, i] = e;
-            if (inventory[i]) {
-                let dropped = inventory[i];
-                inventory.splice(i, 1);
-                inventory.push(dropped);
-            }
-
-        } else {
-            let [toDo, count] = e;
-            let stolen;
-            if (inventory.length > count) {
-                stolen = inventory.splice(inventory.length - count);
+        if (currCommand == 'Yohoho!') {
+            if (inventory.length > 0) {
+                result += `Average treasure gain: ${((inventory.reduce((agg, element) => agg + element.length, 0)) / inventory.length).toFixed(2)} pirate credits.\n`;
+                return result;
             } else {
-                stolen = inventory.splice(0);
+                result += 'Failed treasure hunt.';
+                return result;
             }
-            console.log(stolen.join(', '));
+
+        } else if (currCommand.includes('Loot')) {
+            inventory.unshift(...currCommand.slice(1).filter(e => !inventory.includes(e)).reverse());
+
+        } else if (currCommand.includes('Drop')) {
+            let i = Number(currCommand[1]);
+
+            if (inventory[i] != undefined) {
+                inventory.push(inventory.splice(i, 1)[0]);
+            }
+
+        } else if (currCommand.includes('Steal')) {
+            let count = Number(currCommand[1]);
+            result += `${inventory.splice((inventory.length >= count ? (inventory.length - count) : 0), count).join(', ')}\n`;
         }
-    });
-
-    let avg = 0;
-    for (const item of inventory) {
-        avg += item.length;
-    }
-
-    if (inventory.length) {
-        avg /= inventory.length;
-        console.log(`Average treasure gain: ${avg.toFixed(2)} pirate credits.`);
-    } else {
-        console.log('Failed treasure hunt.');
     }
 }
-solve(['Diamonds|Silver|Shotgun|Gold',
-    'Loot Silver Medals Coal',
-    'Drop -1',
-    'Drop 1',
-    'Steal 10',
-    'Yohoho!'])
+
+console.log(solve(['Gold|Silver|Bronze|Medallion|Cup',
+    'Steal 3',
+    'Yohoho!']));
