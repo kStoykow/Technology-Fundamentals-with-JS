@@ -1,38 +1,8 @@
-function isPositive(firstNum, secondNum, thirdNum) {
-    let numType = typeOfNumber();
-    console.log(numType);
+function isPositive(...params) {
+    return postiveOrNegative(params);
 
-    function typeOfNumber() {
-        if (firstNum >= 0 && secondNum >= 0 && thirdNum >= 0) {
-            return 'Positive';
-        }
-
-        if (firstNum < 0 && secondNum < 0 && thirdNum < 0) {
-            return 'Negative';
-        }
-
-        if (firstNum < 0 && secondNum < 0 && thirdNum >= 0) {
-            return 'Positive';
-        }
-
-        if (firstNum < 0 && secondNum >= 0 && thirdNum >= 0) {
-            return 'Positive';
-        }
-
-        if (firstNum < 0 && secondNum >= 0 && thirdNum < 0) {
-            return 'Positive';
-        }
-
-        if (firstNum >= 0 && secondNum >= 0 && thirdNum < 0) {
-            return 'Negative';
-        }
-
-        if (firstNum >= 0 && secondNum < 0 && thirdNum < 0) {
-            return 'Positive';
-        }
-
-        if (firstNum >= 0 && secondNum < 0 && thirdNum >= 0) {
-            return 'Negative';
-        }
+    function postiveOrNegative(params) {
+        return params.reduce((a, b) => a * b) < 0 ? 'Negative' : 'Positive';
     }
 }
+console.log(isPositive(-4, 5, 6));

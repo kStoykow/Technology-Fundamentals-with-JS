@@ -1,43 +1,44 @@
-function theatreTickets(day, age) {
+function solve(d, age) {
     let ticketPrice = 0;
-    
-    if (age >= 0 && age <= 18) {
 
-        if (day === 'Weekday') {
-            ticketPrice = 12;
-        } else if (day === 'Weekend') {
-            ticketPrice = 15;
-        } else {
-            ticketPrice = 5;
-        }
-
-        console.log(`${ticketPrice}$`);
-
-    } else if (age > 18 && age <= 64) {
-
-        if (day === 'Weekday') {
-            ticketPrice = 18;
-        } else if (day === 'Weekend') {
-            ticketPrice = 20;
-        } else {
-            ticketPrice = 12;
-        }
-
-        console.log(`${ticketPrice}$`);
-
-    } else if (age > 64 && age <= 122) {
-        if (day === 'Weekday') {
-            ticketPrice = 12;
-        } else if (day === 'Weekend') {
-            ticketPrice = 15;
-        } else {
-            ticketPrice = 10;
-        }
-
-        console.log(`${ticketPrice}$`);
-
-    } else {
-        console.log('Error!');
+    let dayMap = {
+        'Weekday': (age, p) => {
+            if (age >= 0 && age <= 18) {
+                p = 12;
+            } else if (age > 18 && age <= 64) {
+                p = 18;
+            } else if (age > 64 && age <= 122) {
+                p = 12;
+            } else {
+                p = 'Error!';
+            }
+            return p;
+        },
+        'Weekend': (age, p) => {
+            if (age >= 0 && age <= 18) {
+                p = 15;
+            } else if (age > 18 && age <= 64) {
+                p = 20;
+            } else if (age > 64 && age <= 122) {
+                p = 15;
+            } else {
+                p = 'Error!';
+            }
+            return p;
+        },
+        'Holiday': (age, p) => {
+            if (age >= 0 && age <= 18) {
+                p = 5;
+            } else if (age > 18 && age <= 64) {
+                p = 12;
+            } else if (age > 64 && age <= 122) {
+                p = 10;
+            } else {
+                p = 'Error!';
+            }
+            return p;
+        },
     }
+    return dayMap[d](age, ticketPrice);
 }
-theatreTickets()
+console.log(solve('Weekend', 5));

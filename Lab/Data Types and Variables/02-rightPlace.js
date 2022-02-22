@@ -1,9 +1,8 @@
-function replacing(word, checkFor, wordToMatch) {
-    let checked = word.replace('_', checkFor);
-
-    if (checked === wordToMatch) {
-        console.log('Matched');
-    } else {
-        console.log('Not Matched');
+function replacing(word, checkFor, result) {
+    const isMatch = {
+        true: 'Matched',
+        false: 'Not Matched'
     }
+    return isMatch[word.replace('_', checkFor) === result];
 }
+console.log(replacing('a_d', 'd', 'add'));

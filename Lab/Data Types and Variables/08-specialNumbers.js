@@ -1,16 +1,19 @@
-function isSpecial(numberRange) {
-    for (let i = 1; i <= numberRange; i++) {
-        let currentNum = i.toString();
-        let currentDigitsSum = 0;
+function isSpecial(num) {
+    let res = '';
+    for (let i = 1; i <= num; i++) {
+        let n = i.toString();
+        let digits = 0;
 
-        for (let j = 0; j < currentNum.length; j++) {
-            currentDigitsSum += Number(currentNum[j]);
+        for (let j = 0; j < n.length; j++) {
+            digits += Number(n[j]);
         }
 
-        if (currentDigitsSum === 5 || currentDigitsSum === 7 || currentDigitsSum === 11) {
-            console.log(`${i} -> True`);
+        if (digits === 5 || digits === 7 || digits === 11) {
+            res += `${i} -> True\n`;
         } else {
-            console.log(`${i} -> False`);
+            res += `${i} -> False\n`;
         }
     }
+    return res;
 }
+console.log(isSpecial(10));

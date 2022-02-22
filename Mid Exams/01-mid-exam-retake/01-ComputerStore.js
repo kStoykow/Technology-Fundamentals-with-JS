@@ -1,11 +1,11 @@
-function solve(arr) {
+function solve(arr,) {
     let command = arr.shift();
     let partsPrice = 0;
     let result = '';
 
     while (command != 'regular' && command != 'special') {
         let price = Number(command);
-
+       
         if (price < 0 || price == -0) {
             result += 'Invalid price!\n';
         } else {
@@ -32,9 +32,8 @@ function solve(arr) {
     }
 
     totalPrice = customersMap[command](totalPrice);
-    console.log();
+  
     result += `Congratulations you've just bought a new computer!\nPrice without taxes: ${partsPrice.toFixed(2)}$\nTaxes: ${taxes.toFixed(2)}$\n-----------\nTotal price: ${totalPrice.toFixed(2)}$`;
     return result;
 }
-
-console.log(solve(['1', 'special']));
+console.log(solve(['1', '5','special'])); 

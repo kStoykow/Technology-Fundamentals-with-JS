@@ -1,14 +1,9 @@
-function repeatString(string, repeats) {
-    let result = concatenate();
-    console.log(result);
+function repeatString(string, n) {
+    let res = repeats();
+    return res;
 
-    function concatenate() {
-        let newString = '';
-
-        for (let i = 0; i < repeats; i++) {
-            newString += string;
-        }
-
-        return newString;
+    function repeats() {
+        return string.repeat(n);
     }
 }
+console.log(repeatString('$', 3));

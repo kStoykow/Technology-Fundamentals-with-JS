@@ -1,16 +1,17 @@
 function printAndSum(oddsToPrint) {
     let oddsSum = 0;
-    oddsCounter = 0;
+    let result = '';
 
     for (let i = 0; i < 100; i++) {
         if (i % 2 === 1) {
             oddsSum += i;
-            oddsCounter++;
-            console.log(i);
-            if (oddsCounter === oddsToPrint) {
+            result += `${i}\n`;
+            if (result.split('\n').filter(e => e != '').length === oddsToPrint) {
                 break;
             }
         }
     }
-    console.log(`Sum: ${oddsSum}`);
+    result += `Sum: ${oddsSum}`;
+    return result
 }
+console.log(printAndSum(5));

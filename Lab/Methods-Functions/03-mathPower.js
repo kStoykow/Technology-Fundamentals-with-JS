@@ -1,3 +1,3 @@
-function raisedNum(num, raiseTo){
-    return Math.pow(num, raiseTo);
+function raisedNum(x, power){
+    return Math.pow(x, power);
 }

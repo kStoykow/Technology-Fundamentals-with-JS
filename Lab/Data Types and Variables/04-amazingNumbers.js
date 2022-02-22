@@ -1,13 +1,11 @@
-function isAmazing(numberToCheck) {
-    numberToCheck = numberToCheck.toString();
+function isAmazing(x) {
+    x = x.toString();
     let digitsSum = 0;
 
-    for (let i = 0; i < numberToCheck.length; i++) {
-        digitsSum += Number(numberToCheck[i]);
+    for (let i = 0; i < x.length; i++) {
+        digitsSum += Number(x[i]);
     }
 
-    let result = digitsSum.toString().includes('9');
-    console.log(result
-        ? `${numberToCheck} Amazing? True`
-        : `${numberToCheck} Amazing? False`);
+    return digitsSum.toString().includes('9') ? `${x} Amazing? True` : `${x} Amazing? False`;
 }
+console.log(isAmazing(45));

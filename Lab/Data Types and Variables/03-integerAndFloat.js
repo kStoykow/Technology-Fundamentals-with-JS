@@ -1,5 +1,4 @@
-function isInteger(firstNum, secondNum, thirdNum) {
-    let sum = firstNum + secondNum + thirdNum;
-   let result = sum % 1 !== 0 ? `${sum} - Float` : `${sum} - Integer`;
-   console.log(result);
+function isInteger(...nums) {
+    return nums.reduce((a, b) => a + b) % 1 !== 0 ? `${nums.reduce((a, b) => a + b)} - Float` : `${nums.reduce((a, b) => a + b)} - Integer`;
 }
+console.log(isInteger(1, 2, 3));

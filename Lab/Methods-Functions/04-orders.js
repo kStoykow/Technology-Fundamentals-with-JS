@@ -1,8 +1,7 @@
-function getPrice(product, quantity) {
-    let totalPrice = calculateTotalPrice();
-    console.log(totalPrice.toFixed(2));
+function getPrice(p, quantity) {
+    return calcPrice(p, quantity).toFixed(2);
 
-    function calculateTotalPrice() {
+    function calcPrice(product, quantity) {
         if (product === 'coffee') {
             return 1.50 * quantity;
         }
@@ -20,3 +19,4 @@ function getPrice(product, quantity) {
         }
     }
 }
+console.log(getPrice('coke', 3.223));

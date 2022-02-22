@@ -1,21 +1,24 @@
 function printGrade(grade) {
-    let result = whatGrade();
-    console.log(result);
+    let res = calcGrade(grade);
 
-    function whatGrade() {
-        if (grade >= 2 && grade < 3) {
-            return 'Fail';
+    return res;
+    function calcGrade(x) {
+        if (x < 3) {
+            return `Fail (2.00)`;
 
-        } if (grade >= 3 && grade < 3.5) {
-            return 'Poor';
+        } if (x >= 3 && x < 3.5) {
+            return `Poor (${x.toFixed(2)})`;
 
-        } if (grade >= 3.5 && grade < 4.5) {
-            return 'Good';
+        } if (x >= 3.5 && x < 4.5) {
+            return `Good (${x.toFixed(2)})`;
 
-        } if (grade >= 4.5 && grade < 5.5) {
-            return 'Very good';
+        } if (x >= 4.5 && x < 5.5) {
+            return `Very good (${x.toFixed(2)})`;
         }
-
-        return 'Excellent';
+        if (x >= 5.5 && x < 6) {
+            return `Excellent (${x.toFixed(2)})`;
+        }
+        return 'Error!'
     }
 }
+console.log(printGrade(7));
