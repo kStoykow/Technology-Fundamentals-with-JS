@@ -1,5 +1,3 @@
-function solve(arr){
-    let firstElement = Number(arr.shift());
-    let lastElement = Number(arr.pop());
-    return firstElement + lastElement;
+function solve(arr) {
+    return Number(arr[0]) + Number(arr[arr.length - 1]);
 }

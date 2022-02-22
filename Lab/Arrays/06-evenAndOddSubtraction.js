@@ -1,16 +1,16 @@
-function subtraction (array){
-let evenSum = 0;
-let oddSum = 0;
+function subtraction(arr) {
+    function elementsCalc(b, a) {
+        if (b % 2 == 0) {
+            a[0] += b;
+        } else {
+            a[1] += b;
+        }
+        return a;
+    }
 
-for (let i = 0; i < array.length; i++) {
-
-    if(array[i] % 2 === 0){
-        evenSum += array[i];
-    }else{
-        oddSum += array[i];
-    }   
+    return arr.reduce((a, b) => {
+        elementsCalc(b, a);
+        return a;
+    }, [0, 0]).reduce((a, b) => a - b);
 }
-
-console.log(evenSum - oddSum)
-}
-subtraction ([3,5,7,9])
+console.log(subtraction([3, 5, 7, 9]));

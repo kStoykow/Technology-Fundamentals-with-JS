@@ -1,7 +1,8 @@
-function firstAndLastTwo(array) {
-    let result = array
-        .sort((a, b) => a - b)
-        .slice(0, 2)
+function processOddNums(arr) {
+    return arr
+        .filter((_, i) => i % 2 == 0)
+        .map(e => e * 2)
+        .reverse()
         .join(' ')
-    console.log(result);
 }
+console.log((processOddNums([10, 20, 30, 40])));

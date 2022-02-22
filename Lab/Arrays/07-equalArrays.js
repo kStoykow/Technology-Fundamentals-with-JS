@@ -1,22 +1,12 @@
-function areEqual(leftArr, rightArr) {
-    let counter = 0;
-    let sum = 0;
-    let isEqual = true;
-
-    for (let i = 0; i < leftArr.length; i++) {
-        if (leftArr[i] === rightArr[i]) {
-            if (isEqual) {
-                counter++;
-                sum += Number(leftArr[i]);
-            }
-
+function areEqual(arr1, arr2) {
+    function isDifferent(arr1, arr2) {
+        if (arr1.filter((e, i) => e != arr2[i]).length != 0) {
+            return `Arrays are not identical. Found difference at ${arr1.indexOf(arr1.filter((e, i) => e != arr2[i])[0])} index`;
         } else {
-            isEqual = false;
-            console.log(`Arrays are not identical. Found difference at ${counter} index`);
-            break;
+            return `Arrays are identical. Sum: ${arr1.reduce((a, b) => a + b)}`;
         }
     }
-    if (isEqual) {
-        console.log(`Arrays are identical. Sum: ${sum}`);
-    }
+
+    return isDifferent(arr1, arr2);
 }
+console.log(areEqual([1, 2, 3], [1, 2, 4]));

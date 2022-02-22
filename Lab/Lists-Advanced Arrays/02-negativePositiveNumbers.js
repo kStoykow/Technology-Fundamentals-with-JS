@@ -1,12 +1,13 @@
-function makeNew(array) {
+function newRearrangedArr(arr) {
     let newArr = [];
-    for (const element of array) {
-        if (element >= 0) {
-            newArr.push(element);
+    for (let e of arr) {
+        if (e >= 0) {
+            newArr.push(e);
         } else {
-            newArr.unshift(element);
+            newArr.unshift(e);
         }
     }
-    
-    console.log(newArr.join('\n'));
+
+    return newArr.join('\n');
 }
+console.log(newRearrangedArr([-2, -4, 2, 4, 3]));
