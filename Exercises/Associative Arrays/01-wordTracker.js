@@ -17,8 +17,8 @@ function solve(input) {
         .sort((a, b) => b[1] - a[1])
         .forEach(([key, value]) => console.log(`${key} - ${value}`));
 }
-solve([
+console.log(solve([
     'this sentence', 'In', 'this', 'sentence', 'you', 'have', 'to', 'count', 'the', 'occurances', 'of', 'the'
     , 'words', 'this', 'and', 'sentence', 'because', 'this', 'is', 'your', 'task'
-]
-)
+])
+);

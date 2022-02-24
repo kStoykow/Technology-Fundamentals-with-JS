@@ -1,6 +1,8 @@
-function rounding(number, roundTo) {
-    if (roundTo > 15) {
-        roundTo = 15;
+function rounding(x, roundTo) {
+    let rounderMap = {
+        true: (e) => 15,
+        false: (e) => e
     }
-    console.log(Number(number.toFixed(roundTo)));
+    return Number(x.toFixed(rounderMap[roundTo > 15](roundTo)));
 }
+console.log(rounding(3.1234567890123456781232131321, 3));

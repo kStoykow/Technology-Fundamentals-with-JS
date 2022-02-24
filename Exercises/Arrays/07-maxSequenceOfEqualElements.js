@@ -1,19 +1,19 @@
-function sequences(input) {
-    let array = input[0].split(' ');
+function sequences(data) {
+    let arr = data[0].split(' ');
     let maxSequence = [];
 
-    for (let i = 0; i < array.length; i++) {
-        let currentSequence = [];
-        while (i !== array.length && array[i] === array[i + 1]) {
-            currentSequence.push(array[i]);
+    for (let i = 0; i < arr.length; i++) {
+        let currSeq = [];
+        while (i !== arr.length && arr[i] === arr[i + 1]) {
+            currSeq.push(arr[i]);
             i++;
         }
-        currentSequence.push(array[i]);
+        currSeq.push(arr[i]);
 
-        if (currentSequence.length > maxSequence.length) {
-            maxSequence = currentSequence;
+        if (currSeq.length > maxSequence.length) {
+            maxSequence = currSeq;
         }
     }
 
-    console.log(maxSequence.join(' '));
+    return maxSequence.join(' ');
 }

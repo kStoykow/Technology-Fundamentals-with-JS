@@ -1,20 +1,13 @@
-function findMagicSum(array) {
-    let numberToCompare = Number(array[1]);
-    let myArray = array[0].split(' ');
-
+function findMagicSum(arr) {
+    let compareTo = Number(arr[1]);
+    let myArr = arr[0].split(' ');
     let combinations = [];
 
-    for (let i = 0; i < myArray.length - 1; i++) {
-        let currentElement = Number(myArray[i]);
-
-        for (let j = i + 1; j < myArray.length; j++) {
-            let nextElement = Number(myArray[j]);
-
-            if (currentElement + nextElement === numberToCompare) {
-                combinations.push(`${currentElement} ${nextElement}`);
-            }
+    for (let i = 0; i < myArr.length - 1; i++) {
+        if (Number(myArr[i]) + Number(myArr[i + 1]) === compareTo) {
+            combinations.push(`${Number(myArr[i])} ${Number(myArr[i + 1])}`);
         }
     }
-
-    console.log(combinations.join('\n'));
+    return combinations.join('\n');
 }
+console.log(findMagicSum(['1 7 6 2 19 23', '8']));

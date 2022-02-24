@@ -36,6 +36,5 @@ function vacantion(number, group, day) {
     } else if (group === 'Regular' && (number >= 10 && number <= 20)) {
         totalPrice *= 0.95;
     }
-
     console.log(`Total price: ${totalPrice.toFixed(2)}`);
 }

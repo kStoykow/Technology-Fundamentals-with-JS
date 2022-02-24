@@ -1,45 +1,49 @@
-function games(input) {
-    let accountGames = input[0].split(' ');
+function games(data) {
+    let acc = data[0].split(' ');
 
-    for (let i = 1; i < input.length; i++) {
-        let currentElement = input[i].split(' ');
-        let command = currentElement[0];
-        let newGame = currentElement[1];
-
-        if (command === 'Play!') {
-            break;
-
-        } else if (command === 'Install') {
-            if (!accountGames.includes(newGame)) {
-                accountGames.push(newGame);
+    const commandsMap = {
+        "Play!": (arr, e) => arr,
+        'Install': (arr, e) => {
+            if (!arr.includes(e)) {
+                arr.push(e);
             }
-
-        } else if (command === 'Uninstall') {
-            for (let j = 0; j < accountGames.length; j++) {
-                if (accountGames[j] === newGame) {
-                    accountGames.splice(j, 1);
-                }
+            return arr;
+        },
+        'Uninstall': (arr, e) => {
+            if (arr.includes(e)) {
+                arr.splice(arr.indexOf(e), 1);
             }
-
-        } else if (command === 'Update') {
-            for (let l = 0; l < accountGames.length; l++) {
-                if (accountGames[l] === newGame) {
-                    let updatedGame = newGame;
-                    accountGames.splice(l, 1);
-                    accountGames.push(updatedGame);
-                }
+            return arr;
+        },
+        'Update': (arr, e) => {
+            if (arr.includes(e)) {
+                arr.push(arr.splice(arr.indexOf(e), 1));
             }
-
-        } else {
-            let expansion = newGame.split('-');
-            for (let p = 0; p < accountGames.length; p++) {
-                if (accountGames[p] === expansion[0]) {
-                    let expandedGame = expansion.join(':');
-                    accountGames.splice(p + 1, 0, expandedGame);
-                }
+            return arr;
+        },
+        'Expansion': (arr, e) => {
+            let [game, exp] = e.split('-');
+            if (arr.includes(game)) {
+                arr.splice(arr.indexOf(game) + 1, 0, `${game}:${exp}`);
             }
+            return arr;
         }
     }
 
-    console.log(accountGames.join(' '));
-} 
+    for (let i = 1; i < data.length; i++) {
+        let currentElement = data[i].split(' ');
+        let command = currentElement[0];
+        let elem = currentElement[1];
+        commandsMap[command](acc, elem);
+    }
+
+    return acc.join(' ');
+}
+
+console.log(games(['CS WoW Diablo',
+    'Install LoL',
+    'Uninstall WoW',
+    'Play!',
+    'Update Diablo',
+    'Expansion CS-Go',
+    'Play!']));
