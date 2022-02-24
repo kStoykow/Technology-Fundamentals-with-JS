@@ -18,7 +18,7 @@ function printGrade(grade) {
         if (x >= 5.5 && x < 6) {
             return `Excellent (${x.toFixed(2)})`;
         }
-        return 'Error!'
+        return 'Error!';
     }
 }
 console.log(printGrade(7));

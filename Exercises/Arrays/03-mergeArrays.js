@@ -1,13 +1,8 @@
-function mergeArrays(firstArray, secondArray) {
-    let mergedArray = [];
-
-    for (let i = 0; i < firstArray.length; i++) {
-        if (i % 2 === 0) {
-            mergedArray.push(Number(firstArray[i]) + Number(secondArray[i]));
-        } else {
-            mergedArray.push(firstArray[i] + secondArray[i]);
-        }
+function solve(arr, arr2) {
+    function concatOrAdd(i, e, arr) {
+        return i % 2 === 0 ? Number(e) + Number(arr[i]) : e + arr[i];
     }
 
-    console.log(mergedArray.join(' - '));
+    return arr.map((e, i) => concatOrAdd(i, e, arr2)).join(' - ');
 }
+console.log(solve(["5", "15", "23", "56", "35"], ["17", "22", "87", "36", "11"]));

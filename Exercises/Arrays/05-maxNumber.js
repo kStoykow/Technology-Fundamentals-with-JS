@@ -1,19 +1,11 @@
-function topInteger(array) {
-    let topIntegers = [];
-    
-    for (let i = 0; i < array.length; i++) {
-        let biggerThanElements = 0;
-
-        for (let compare = i; compare < array.length; compare++) {
-            if (array[i] > array[compare]) {
-                biggerThanElements++
-            }
-
-            if (biggerThanElements === (array.length - 1 - i)) {
-                topIntegers.push(array[i]);
-            }
+function topInteger(arr) {
+    let top = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr.slice(i + 1).every(e => e < arr[i])) {
+            top.push(arr[i]);
         }
-    }
 
-    console.log(topIntegers.join(' '));
+    }
+    return top.join(' ');
 }
+console.log(topInteger([1, 4, 3, 2, 5]));

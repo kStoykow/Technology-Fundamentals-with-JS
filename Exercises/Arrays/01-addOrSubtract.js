@@ -1,21 +1,12 @@
-function modifyArray(input) {
-    let newArray = [];
-    let originalArraySum = 0;
-    let newArraySum = 0;
-
-    for (let i = 0; i < input.length; i++) {
-        if (input[i] % 2 === 0) {
-            newArray.push(input[i] + i);
-            newArraySum += newArray[i];
+function modifyArray(arr) {
+    let myArr = arr.map((e, i) => {
+        if (e % 2 === 0) {
+            return e + i;
         } else {
-            newArray.push(input[i] - i);
-            newArraySum += newArray[i];
+            return e - i;
         }
+    });
 
-        originalArraySum += input[i];
-    }
-
-    console.log(newArray);
-    console.log(originalArraySum);
-    console.log(newArraySum);
+    return [`[ ${myArr.join(', ')} ]`, arr.reduce((a, b) => a + b), myArr.reduce((a, b) => a + b)].join('\n');
 }
+console.log(modifyArray([1, 2, 3, 4]));

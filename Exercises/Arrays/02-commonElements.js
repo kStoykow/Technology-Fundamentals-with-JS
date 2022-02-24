@@ -1,9 +1,4 @@
-function isCommon(firstArr, secondArr) {
-    for (let i = 0; i < firstArr.length; i++) {
-        for (let j = 0; j < secondArr.length; j++) {
-            if (firstArr[i] === secondArr[j]) {
-                console.log(firstArr[i]);
-            }
-        }
-    }
+function isCommon(arr, arr2) {
+    return arr.filter(e => arr2.includes(e)).join('\n');
 }
+console.log(isCommon([1, 2, 3], [1, 2, 4, 3]));
