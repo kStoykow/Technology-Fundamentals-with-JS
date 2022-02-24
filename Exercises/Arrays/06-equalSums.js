@@ -1,34 +1,19 @@
-function equalSumsLeftAndRight(array) {
-    let leftSum = 0;
-    let rightSum = 0;
-
-    for (let i = 0; i < array.length; i++) {
-        leftSum = 0;
-        rightSum = 0;
-
-        for (let leftArr = 0; leftArr < i; leftArr++) {
-            if (i === 0) {
-                leftSum += array[leftArr] + 0;
-            } else {
-                leftSum += array[leftArr];
-            }
+function equalSums(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        let left = arr.slice(0, i).reduce((a, b) => a + b, 0);
+        let right = arr.slice(i + 1).reduce((a, b) => a + b, 0);
+        
+        if (i == 0) {
+            left = 0;
+        } else if (i == arr.length - 1) {
+            right = 0;
         }
 
-        for (let rightArr = i + 1; rightArr < array.length; rightArr++) {
-            if (i === array.length) {
-                rightSum += array[rightArr] + 0;
-            } else {
-                rightSum += array[rightArr];
-            }
+        if (left == right) {
+            return i;
         }
 
-        if (leftSum === rightSum) {
-            console.log(i);
-            break;
-        }
     }
 
-    if(leftSum !== rightSum){
-        console.log('no');
-    }
+    return 'no';
 }
