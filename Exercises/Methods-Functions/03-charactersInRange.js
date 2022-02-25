@@ -1,24 +1,12 @@
 function printCharSequence(firstChar, lastChar) {
-    let charSequence = getSequenceOfChars();
-    console.log(charSequence);
+    return getSequenceOfChars(firstChar, lastChar);
 
-    function getSequenceOfChars() {
-        let toPrint = '';
-
-        if (firstChar.charCodeAt(0) < lastChar.charCodeAt(0)) {
-            for (let i = firstChar.charCodeAt(0) + 1; i < lastChar.charCodeAt(0); i++) {
-                toPrint += String.fromCharCode(i) + ' ';
-            }
-
-            return toPrint;
-
-        } else {
-            for (let i = lastChar.charCodeAt(0) + 1; i < firstChar.charCodeAt(0); i++) {
-                toPrint += String.fromCharCode(i) + ' ';
-            }
-
-            return toPrint;
+    function getSequenceOfChars(x, y) {
+        let result = '';
+        for (let i = Math.min(x.charCodeAt(0), y.charCodeAt(0)) + 1; i < Math.max(x.charCodeAt(0), y.charCodeAt(0)); i++) {
+            result += `${String.fromCharCode(i)} `
         }
+        return result;
     }
-
 }
+console.log(printCharSequence('a', 'y'));

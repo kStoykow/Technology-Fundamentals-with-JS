@@ -1,19 +1,15 @@
 function loadingBar(num) {
-    let bar = visualize();
-    console.log(bar);
+    return visualize(num);
 
-    function visualize() {
-        let arrayBar = ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'];
-        let toChange = num / 10;
-
-        for (let i = 0; i < toChange; i++) {
-            arrayBar.splice(i, 1, '%');
-        }
+    function visualize(n) {
+        let bar = ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'];
+        let toChange = n / 10;
+        bar.splice(0, Math.ceil(toChange), '%'.repeat(toChange >= 100 ? 10 : toChange));
 
         if (toChange < 10) {
-            return `${num}% [${arrayBar.join('')}]\n\Still loading...`;
+            return `${num}% [${bar.join('')}]\n\Still loading...`;
         }
-
-        return `100% Complete!\n\[${arrayBar.join('')}]`;
+        return `100% Complete!\n\[${bar.join('')}]`;
     }
 }
+console.log(loadingBar(1000));

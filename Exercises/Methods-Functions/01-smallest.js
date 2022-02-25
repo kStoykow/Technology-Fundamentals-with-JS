@@ -1,19 +1,8 @@
-function printSmallest(numOne, numTwo, numThree) {
-    let result = smallestNum()
-    console.log(result);
+function printSmallest(x, y, z) {
+    return smallestNum(x, y, z);
 
-    function smallestNum() {
-        if (numOne <= numTwo && numOne <= numThree) {
-            return numOne;
-        }
-
-        if (numTwo <= numOne && numTwo <= numThree) {
-            return numTwo;
-        }
-
-        if (numThree <= numOne && numThree <= numTwo) {
-            return numThree;
-        }
+    function smallestNum(...params) {
+        return params.sort((a, b) => a - b)[0];
     }
-
 }
+console.log(printSmallest(2, 5, 1));

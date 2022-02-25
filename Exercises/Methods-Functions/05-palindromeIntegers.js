@@ -1,28 +1,13 @@
-function isTrue(array) {
-    let result = isPalindrome();
-    console.log(result); 
+function isTrue(arr) {
+    return isPalindrome(arr);
 
-    function isPalindrome() {
-        let toPrint = '';
-
-        for (let i = 0; i < array.length; i++) {
-            let currentElement = array[i].toString();
-            let isFalse = false;
-
-            for (let j = 0; j < currentElement.length / 2; j++) {
-                if (currentElement[j] !== currentElement[currentElement.length - 1 - j]) {
-                    isFalse = true;
-                    break;
-                }
-            }
-
-            if (isFalse) {
-                toPrint += 'false \n';
-            } else {
-                toPrint += 'true \n';
-            }
+    function isPalindrome(arr) {
+        let r = '';
+        for (let n of arr) {
+            let num = n.toString();
+            r += num == num.split('').reverse().join('') ? 'true\n' : 'false\n'
         }
-
-        return toPrint;
+        return r;
     }
 }
+console.log(isTrue([123, 323, 421, 121]));

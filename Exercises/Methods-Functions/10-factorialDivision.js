@@ -1,20 +1,17 @@
-function factoralDivision(firstNum, secondNum) {
-    let result = factorialNumbersDivision();
-    console.log(result);
+function factoralDivision(x, y) {
+    return factorialNumbersDivision(x, y);
 
-    function factorialNumbersDivision() {
-        let firstResult = firstNum;
-        let secondResult = secondNum;
+    function factorialNumbersDivision(x, y) {
+        let xResult = x;
+        let yResult = y;
 
-        for (let i = 1; i < firstNum; i++) {
-            firstResult *= (firstNum - i);
+        for (let i = 1; i < x; i++) {
+            xResult *= (x - i);
         }
-
-        for (let j = 1; j < secondNum; j++) {
-            secondResult *= (secondNum - j);
+        for (let j = 1; j < y; j++) {
+            yResult *= (y - j);
         }
-
-        return (firstResult / secondResult).toFixed(2);
+        return (xResult / yResult).toFixed(2);
     }
 }
-factoralDivision(5, 2)
+console.log(factoralDivision(5, 2));

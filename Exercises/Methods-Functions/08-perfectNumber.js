@@ -1,11 +1,10 @@
 function isPerfect(number) {
-    let perfectOrNo = getSum();
-    console.log(perfectOrNo);
+    return getSum(number);
 
-    function getSum() {
+    function getSum(n) {
         let divisorsSum = 0;
-        for (let i = 1; i <= number; i++) {
-            if (number % i === 0) {
+        for (let i = 1; i <= n; i++) {
+            if (n % i === 0) {
                 divisorsSum += i;
             }
         }
@@ -13,7 +12,7 @@ function isPerfect(number) {
         if ((divisorsSum / 2) === number) {
             return `We have a perfect number!`;
         }
-
         return 'It\'\s not so perfect.';
     }
 }
+console.log(isPerfect(6));

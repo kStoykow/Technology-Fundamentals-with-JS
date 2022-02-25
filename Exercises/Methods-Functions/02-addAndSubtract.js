@@ -1,15 +1,13 @@
-function qwerty(firstNum, secondNum, thirdNum) {
-    let firstTwoNumSum = sum();
-    let result = subtract();
-    console.log(result);
+function addAndSubtract(x, y, z) {
+    let res = sum(x, y);
+    return subtract(res, z);
 
-
-    function sum() {
-        return firstNum + secondNum;
+    function sum(x, y) {
+        return x + y;
     }
 
-    function subtract() {
-        return firstTwoNumSum - thirdNum;
+    function subtract(x, y) {
+        return x - y;
     }
-
 }
+console.log(addAndSubtract(1, 3, 4));

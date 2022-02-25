@@ -1,20 +1,20 @@
-function printSum(number) {
-    let result = digitsSum();
-    console.log(result);
-   
-    function digitsSum() {
-        number = number.toString().split('');
-        let evenSum = 0;
-        let oddSum = 0;
+function printSum(n) {
+    return digitsSum(n);
 
-        for (let i = 0; i < number.length; i++) {
-            if(number[i] % 2 === 0){
-                evenSum += Number(number[i]);
-            }else{
-                oddSum += Number(number[i]);
+    function digitsSum(n) {
+        n = n.toString().split('');
+        let even = 0;
+        let odd = 0;
+        n.map(e => {
+            if (Number(e) % 2 == 0) {
+                even += Number(e);
+                return even;
+            } else {
+                odd += Number(e);
+                return odd;
             }
-        }
-
-        return `Odd sum = ${oddSum}, Even sum = ${evenSum}`;
+        });
+        return `Odd sum = ${odd}, Even sum = ${even}`;
     }
 }
+console.log(printSum(1000435));

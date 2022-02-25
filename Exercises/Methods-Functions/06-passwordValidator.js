@@ -1,71 +1,55 @@
-function passwordChecker(password) {
-    let passwordLength = isLongEnough();
-    let passwordSymbols = symbolsCheck();
-    let passwordDigits = minimumDigits();
+function passwordChecker(pass) {
+    let lengthValidator = isLongEnough(pass);
+    let symbolsValidator = symbolsCheck(pass);
+    let digitsValidator = minimumDigits(pass);
+    let result = '';
 
-    if (passwordLength && passwordSymbols && passwordDigits) {
-        console.log('Password is valid');
-    } else if (!passwordLength) {
-        console.log('Password must be between 6 and 10 characters');
+    if (lengthValidator == true && symbolsValidator == true && digitsValidator == true) {
+        result += 'Password is valid\n';
+    } else if (lengthValidator == false) {
+        result += 'Password must be between 6 and 10 characters\n';
+    }
+    if (symbolsValidator == false) {
+        result += 'Password must consist only of letters and digits\n';
+    }
+    if (digitsValidator == false) {
+        result += 'Password must have at least 2 digits\n';
     }
 
-    if (!passwordSymbols) {
-        console.log('Password must consist only of letters and digits');
-    }
-
-    if (!passwordDigits) {
-        console.log('Password must have at least 2 digits');
-    }
-
-    function isLongEnough() {
-        if (password.length < 6 || password.length > 10) {
+    function isLongEnough(pass) {
+        if (pass.length < 6 || pass.length > 10) {
             return false;
         }
         return true;
     }
-    function symbolsCheck() {
-        let toCheck = password.split('');
+    function symbolsCheck(pass) {
+        const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', "J", 'K',
+            'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', "U", 'V', "W", 'X', 'Y', 'Z'];
 
-        for (let i = 0; i < password.length; i++) {
-            let currentSymbol = password[i].toUpperCase();
+        for (let i = 0; i < pass.length; i++) {
+            let currentSymbol = pass[i].toUpperCase();
             let isLetter = false;
             let isDigit = false;
 
-            for (let upperCase = 65; upperCase < 91; upperCase++) {
-                if (currentSymbol.charCodeAt(0) === upperCase) {
-                    isLetter = true;
-                }
+            if (alphabet.includes(currentSymbol)) {
+                isLetter = true
+            }
+            if (!isNaN(Number(currentSymbol))) {
+                isDigit = true;
             }
 
-            for (let digit = 48; digit < 58; digit++) {
-                if (currentSymbol.charCodeAt(0) === digit) {
-                    isDigit = true;
-                }
-            }
-
-            if (!isDigit && !isLetter) {
+            if (isDigit == false && isLetter == false) {
                 return false;
             }
         }
-
         return true;
     }
-    function minimumDigits() {
-        let digitsCheck = password.split('');
-        let digitsCounter = 0;
-        for (let i = 0; i < digitsCheck.length; i++) {
-            let currentSymbol = digitsCheck[i];
-
-            for (let digit = 48; digit < 58; digit++) {
-                if (currentSymbol.charCodeAt(0) === digit) {
-                    digitsCounter++;
-                }
-            }
-        }
-
-        if (digitsCounter >= 2) {
+    function minimumDigits(pass) {
+        if (pass.split('').filter(e => !isNaN(Number(e))).length >= 2) {
             return true;
         }
         return false;
     }
+    return result;
 }
+console.log(passwordChecker('log!3In'));
