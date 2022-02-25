@@ -1,10 +1,10 @@
-function print(array) {
-    let step = Number(array.pop());
-    let toPrint = [];
+function print(arr) {
+    let step = Number(arr.pop());
+    let r = new Array(arr.length % Number(step));
 
-    for (let i = 0; i < array.length; i += step) {
-        toPrint.push(array[i]);
+    for (let i = 0; i < arr.length; i += step) {
+        r.push(arr[i]);
     }
-
-    console.log(toPrint.join(' '));
+    return r.join(' ');
 }
+console.log(print(['5', '20', '31', '4', '20', '2']));

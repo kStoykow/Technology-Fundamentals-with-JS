@@ -1,20 +1,17 @@
-function solve(commands) {
-    let currentNumber = 0;
+function solve(data) {
     let newArray = [];
-
-    for (let i = 0; i < commands.length; i++) {
-        currentNumber++;
-
-        if (commands[i] === 'add') {
-            newArray.push(currentNumber);
-        } else {
-            newArray.pop();
-        }
+    const commandMap = {
+        add: 'push',
+        remove: 'pop'
+    }
+    for (let i = 0; i < data.length; i++) {
+        newArray[commandMap[data[i]]](i + 1);
     }
 
     if (newArray.length < 1) {
-        console.log('Empty');
+        return 'Empty';
     } else {
-        console.log(newArray.join(' '));
+        return newArray.join(' ');
     }
 }
+console.log(solve(['add', 'add', 'remove', 'add', 'add']));

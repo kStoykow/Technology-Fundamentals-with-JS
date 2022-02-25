@@ -1,10 +1,9 @@
-function rotate(array) {
-    let rotates = Number(array.pop());
+function rotate(arr) {
+    let rotates = Number(arr.pop());
 
-    for (let i = 0; i < rotates; i++) {
-        let lastElement = array.pop();
-        array.splice(0, 0, lastElement);
+    for (let i = 0; i < rotates % arr.length; i++) {
+        arr.splice(0, 0, arr.pop());
     }
-
-    console.log(array.join(' '));
+    return arr.join(' ');
 }
+console.log(rotate(['Banana', 'Orange', 'Coconut', 'Apple', '15']));

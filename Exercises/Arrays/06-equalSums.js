@@ -8,12 +8,9 @@ function equalSums(arr) {
         } else if (i == arr.length - 1) {
             right = 0;
         }
-
         if (left == right) {
             return i;
         }
-
     }
-
     return 'no';
 }
