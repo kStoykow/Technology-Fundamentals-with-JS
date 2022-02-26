@@ -5,6 +5,5 @@ function parameters(radius, height) {
     let baseSurface = Math.PI * (radius * radius);
     let totalSurface = lateralSurface + baseSurface;
 
-    console.log(`volume = ${volume.toFixed(4)}`);
-    console.log(`area = ${totalSurface.toFixed(4)}`);
+    return `volume = ${volume.toFixed(4)}\narea = ${totalSurface.toFixed(4)}`;
 }

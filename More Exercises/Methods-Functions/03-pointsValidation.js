@@ -1,8 +1,7 @@
-function distance(array) {
-    let result = checkDistance();
-    console.log(result);
+function distance(arr) {
+    return checkDistance(arr);
 
-    function checkDistance() {
+    function checkDistance(array) {
         let x1 = array.shift();
         let y1 = array.shift();
         let x2 = array.shift();
@@ -34,4 +33,4 @@ function distance(array) {
         return toPrint;
     }
 }
-distance([2, 1, 1, 1])
+console.log(distance([2, 1, 1, 1]));

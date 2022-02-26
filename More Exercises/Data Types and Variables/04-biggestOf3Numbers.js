@@ -1,9 +1,4 @@
-function biggest(firstNum, secondNum, thirdNum) {
-    if (firstNum >= secondNum && firstNum >= thirdNum) {
-        console.log(firstNum);
-    } else if (secondNum > firstNum && secondNum >= thirdNum) {
-        console.log(secondNum);
-    } else if (thirdNum > firstNum && thirdNum > secondNum) {
-        console.log(thirdNum);
-    }
+function biggest(...params) {
+    return params.sort((a, b) => b - a)[0];
 }
+console.log(biggest(23,12,7,123));

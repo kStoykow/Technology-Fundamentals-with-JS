@@ -1,28 +1,11 @@
-function findNeighbors(array) {
-    let neighbors = 0;
-
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array[0].length; j++) {
-            if (i != 0) {
-                if (array[i][j] === array[i - 1][j]) {
-                    neighbors++;
-                }
-
-                if (array[i][j] === array[i][j + 1]) {
-                    neighbors++;
-                }
-
-            } else {
-                if (array[i][j] === array[i][j + 1]) {
-                    neighbors++;
-                }
-            }
-        }
+function findNeighbors(arr) {
+    let r = 0;
+    for (let i = 0; i < arr.length - 1; i++) {
+        r += arr[i].filter((e, index) => e == arr[i + 1][index]).length;
     }
-
-    return neighbors;
+    return r;
 }
-findNeighbors([
+console.log(findNeighbors([
     ['16', '6', '5', '6'],
     ['5', '6', '7', '5'],
-    ['1', '6', '6', '4']]);
+    ['1', '6', '6', '4']]));

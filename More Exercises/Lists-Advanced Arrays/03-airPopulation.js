@@ -1,52 +1,41 @@
 function solve(map, commands) {
-    for (let i = 0; i < map.length; i++) {
-        map[i] = map[i].split(' ').map(Number);
+    let matrix = map.map(line => line.split(' ').map(Number));
+    const commandsMap = {
+        breeze: (matrix, num) => {
+            matrix[num] = matrix[num].map(e => e - 15);
+            return matrix;
+        },
+        gale: (matrix, num) => {
+            matrix.map(arr => arr[num] -= 20);
+            return matrix;
+        },
+        smog: (matrix, num) => {
+            return matrix.map(arr => arr.map(e => e + num));
+        }
     }
-
     for (let i = 0; i < commands.length; i++) {
-        let currenCommand = commands[i].split(' ');
-        let toDo = currenCommand[0];
-        let value = Number(currenCommand[1]);
+        let command = commands[i].split(' ')[0];
+        let num = Number(commands[i].split(' ')[1]);
 
-        if (toDo == 'breeze') {
-            for (let rowToBreeze = 0; rowToBreeze < map.length; rowToBreeze++) {
-                map[value][rowToBreeze] -= 15;
-                if (map[value][rowToBreeze] < 0) {
-                    map[value][rowToBreeze] = 0;
-                }
-            }
-
-        } else if (toDo == 'gale') {
-            for (let colToGale = 0; colToGale < map.length; colToGale++) {
-                map[colToGale][value] -= 20;
-                if (map[colToGale][value] < 0) {
-                    map[colToGale][value] = 0;
-                }
-            }
-
-        } else if (toDo == 'smog') {
-            for (let i = 0; i < map.length; i++) {
-                for (let j = 0; j < map[i].length; j++) {
-                    map[i][j] += value;
-                }
-            }
-        }
+        matrix = matrix.map(arr => arr.map(e => e < 0 ? e = 0 : e));
+        matrix = commandsMap[command](matrix, num);
     }
-    
-    let toPrint = [];
+    let res = [];
 
-    for (let currentRow = 0; currentRow < map.length; currentRow++) {
-        for (let currentCol = 0; currentCol < map[currentRow].length; currentCol++) {
-            if (map[currentRow][currentCol] >= 50) {
-                toPrint.push(` [${currentRow}-${currentCol}]`);
-            }
-        }
+    for (let i = 0; i < matrix.length; i++) {
+        let polluted = matrix[i].filter(e => e >= 50);
+        polluted.forEach((e, index) => res.push(`[${i}-${matrix[i].indexOf(e, index)}]`));
     }
 
-    if (toPrint.length == 0) {
-        console.log('No polluted areas');
-    } else {
-        toPrint.join(',');
-        console.log(`Polluted areas:` + toPrint);
+    if (res.length == 0) {
+        return 'No polluted areas';
     }
+
+    return 'Polluted areas: ' + res.join(', ');
 }
+console.log(solve(["5 7 72 14 4",
+    "41 35 37 27 33",
+    "23 16 27 42 12",
+    "2 20 28 39 14",
+    "16 34 31 10 24"],
+    ["breeze 1", "gale 2", "smog 25"]));

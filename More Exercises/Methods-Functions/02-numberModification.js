@@ -1,18 +1,19 @@
-function highDigitsValue(number) {
-    let checker = number + '';
-    let digitsSum = 0;
-    let digitsCount = 0;
+function highDigitsValue(x) {
+    let numAsString = x + '';
+    let sum = 0;
+    let count = 0;
 
-    for (let i = 0; i < checker.length; i++) {
-        digitsSum += Number(checker[i]);
-        digitsCount++;
+    for (let i = 0; i < numAsString.length; i++) {
+        sum += Number(numAsString[i]);
+        count++;
     }
 
-    if (digitsSum / digitsCount > 5) {
-        console.log(checker);
+    if (sum / count > 5) {
+        console.log(numAsString);
 
     } else {
-        checker += 9;
-        highDigitsValue(checker);
+        numAsString += 9;
+        highDigitsValue(numAsString);
     }
 }
+console.log(highDigitsValue(101));

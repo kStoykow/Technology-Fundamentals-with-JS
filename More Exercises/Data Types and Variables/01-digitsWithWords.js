@@ -1,24 +1,16 @@
-function wordToDigit(digitString) {
-    switch (digitString) {
-        case 'zero': console.log(0);
-            break;
-        case 'one': console.log(1);
-            break;
-        case 'two': console.log(2);
-            break;
-        case 'three': console.log(3);
-            break;
-        case 'four': console.log(4);
-            break;
-        case 'five': console.log(5);
-            break;
-        case 'six': console.log(6);
-            break;
-        case 'seven': console.log(7);
-            break;
-        case 'eight': console.log(8);
-            break;
-        case 'nine': console.log(9);
-            break;
+function wordToDigit(x) {
+    const stringToDigit = {
+        'zero': 0,
+        'one': 1,
+        'two': 2,
+        'three': 3,
+        'four': 4,
+        'five': 5,
+        'six': 6,
+        'seven': 7,
+        'eight': 8,
+        'nine': 9
     }
+    return stringToDigit[x];
 }
+console.log(wordToDigit('five'));

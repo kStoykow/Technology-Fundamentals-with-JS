@@ -42,4 +42,18 @@ function spiral(maxRows, maxColumns) {
     }
     console.log(matrix.map(row => row.join(' ')).join('\n'));
 }
-spiral(3, 3)
+//spiral(3, 3)
+
+function solve(n, n2) {
+    let init = new Array(n).fill(new Array(n).fill(0, 0,3));
+    console.log(init);
+    let r = 1;
+    for (let i = 0; i < init.length; i++) {
+        for (let j = 0; j < init[i].length; j++) {
+            init[i][j] = r;
+            r++;
+        }
+    }
+    console.log(init.join('\n'));
+}
+console.log(solve(3, 3));

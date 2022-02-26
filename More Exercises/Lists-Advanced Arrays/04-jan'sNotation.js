@@ -1,42 +1,33 @@
-function solve(array) {
-    let numbers = [];
+function solve(arr) {
+    let nums = [];
+    const operandsMap = {
+        "+": (a, b) => a + b,
+        "-": (a, b) => a - b,
+        "/": (a, b) => a / b,
+        "*": (a, b) => a * b
+    }
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
+        if (typeof arr[i] == 'number') {
+            nums.push(arr[i]);
 
-        if (typeof array[i] == 'number') {
-            numbers.push(array[i]);
         } else {
-            
-            if (numbers.length < 2) {
-                console.log('Error: not enough operands!');
-                return;
-
+            if (nums.length < 2) {
+                return 'Error: not enough operands!';
             } else {
-                let operandTwo = numbers.pop();
-                let operandOne = numbers.pop();
-                let newResult;
-
-                if (array[i] === '+') {
-                    newResult = operandOne + operandTwo;
-                    numbers.push(newResult);
-                } else if (array[i] === '-') {
-                    newResult = operandOne - operandTwo;
-                    numbers.push(newResult);
-                } else if (array[i] === '*') {
-                    newResult = operandOne * operandTwo;
-                    numbers.push(newResult);
-                } else {
-                    newResult = operandOne / operandTwo;
-                    numbers.push(newResult);
-                }
+                let b = nums.pop();
+                let a = nums.pop();
+                nums.push(operandsMap[arr[i]](a, b));
             }
         }
     }
 
-    if (numbers.length !== 1) {
-        console.log(`Error: too many operands!`);
+    if (nums.length !== 1) {
+        return 'Error: too many operands!';
     } else {
-        console.log(numbers[0]);
+        return nums[0];
     }
 }
-solve()
+console.log(solve([[3,
+    4,
+    '+']]));

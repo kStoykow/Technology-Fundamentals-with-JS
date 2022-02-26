@@ -1,30 +1,24 @@
-function chessBoard(size) {
-    let currentColor = 'black';
-    let previousColor = '';
-    console.log('<div class="chessboard">');
+function chessBoard(x) {
+    let size = Number(x);
+    let currentColour = 'black';
+    let r = '<div class="chessboard">\n';
 
-    for (let rows = 0; rows < size; rows++) {
-        console.log('  <div>');
-        for (let columns = 0; columns < size; columns++) {
-            console.log(`    <span class="${currentColor}"></span>`);
-            previousColor = currentColor;
+    for (let rows = 1; rows <= size; rows++) {
+        r += '  <div>\n'
 
-            if (currentColor === 'black') {
-                currentColor = 'white';
-            } else {
-                currentColor = 'black';
-            }
+        for (let columns = 1; columns <= size; columns++) {
+            r += `    <span class="${currentColour}"></span>\n`;
+
+            currentColour = currentColour === 'black' ? 'white' : 'black';
         }
+        r += '  </div>\n';
 
-        console.log('  </div>');
         if (size % 2 === 0) {
-            previousColor = currentColor;
-            if (previousColor === 'black') {
-                currentColor = 'white';
-            } else {
-                currentColor = 'black';
-            }
+            currentColour = currentColour === 'black' ? 'white' : 'black';
         }
     }
-    console.log('  </div>');
+
+    r += '</div>';
+    return r;
 }
+console.log(chessBoard(3));
