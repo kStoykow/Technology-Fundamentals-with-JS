@@ -1,8 +1,8 @@
-function spiral(maxRows, maxColumns) {
+function spiral(x, y) {
     let matrix = [];
-    for (let i = 0; i < maxRows; i++) {
+    for (let i = 0; i < x; i++) {
         matrix.push([]);
-        for (let j = 0; j < maxColumns; j++) {
+        for (let j = 0; j < y; j++) {
             matrix[i].push(0);
         }
     }
@@ -10,10 +10,10 @@ function spiral(maxRows, maxColumns) {
     let col = -1;
     let row = 1;
 
-    while (element < maxRows * maxColumns) {
+    while (element < x * y) {
         row--;
         col++;
-        while (col < maxColumns && matrix[row][col] == 0) { // хоризонтално напред
+        while (col < y && matrix[row][col] == 0) { // хоризонтално напред
             element++;
             matrix[row][col] = element;
             col++;
@@ -34,26 +34,12 @@ function spiral(maxRows, maxColumns) {
         }
         row++;
         col++;
-        while (row < maxRows && matrix[row][col] == 0) {//
+        while (row < x && matrix[row][col] == 0) {//
             element++;
             matrix[row][col] = element;
             row++;
         }
     }
-    console.log(matrix.map(row => row.join(' ')).join('\n'));
+    return matrix.map(row => row.join(' ')).join('\n');
 }
-//spiral(3, 3)
-
-function solve(n, n2) {
-    let init = new Array(n).fill(new Array(n).fill(0, 0,3));
-    console.log(init);
-    let r = 1;
-    for (let i = 0; i < init.length; i++) {
-        for (let j = 0; j < init[i].length; j++) {
-            init[i][j] = r;
-            r++;
-        }
-    }
-    console.log(init.join('\n'));
-}
-console.log(solve(3, 3));
+console.log(spiral(3, 3));

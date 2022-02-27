@@ -9,7 +9,6 @@ function solve(input) {
     });
 
     let sorted = heroes.sort((a, b) => a.level - b.level);
-
     sorted.forEach(obj => {
         console.log(`Hero: ${obj.Hero}`);
         console.log(`level => ${obj.level}`);
