@@ -1,46 +1,23 @@
-function solve(input) {
-    let allFlights = input.shift();
-    let changedStatuses = input.shift();
-    let statusToPrint = input.shift()[0];
-
-    let readyFlightsDb = {};
-    let cancelledFlightsDb = [];
-
-    for (const currentFlight of allFlights) {
-        let [sector, Destination] = currentFlight.split(' ');
-        readyFlightsDb[sector] = { Destination, Status: "Ready to fly" };
-    }
-
-    if (statusToPrint == 'Ready to fly') {
-        for (const changedFlight of changedStatuses) {
-            let [sector] = changedFlight.split(' ');
-            if (readyFlightsDb.hasOwnProperty(sector)) {
-                delete readyFlightsDb[sector];
-            }
-        }
-
-        let readyFlights = Object.values(readyFlightsDb);
-        for (const flight of readyFlights) {
-            console.log(flight);
-        }
-
-    } else {
-        for (const flight of allFlights) {
-            let [sector, Destination] = flight.split(' ');
-            for (const currentCancelled of changedStatuses) {
-                let [cancelledSector] = currentCancelled.split(' ');
-                if (sector == cancelledSector) {
-                    cancelledFlightsDb.push({ Destination, Status: 'Cancelled' })
-                }
-            }
-        }
-
-        for (const flight of cancelledFlightsDb) {
-            console.log(flight);
+function solve(data) {
+    let list = data[0]
+    function statusHandler(flight, a, dest) {
+        if (data[1].filter(e => e.split(' ')[0] == flight).length != 0) {
+            let status = data[1].filter(e => e.split(' ')[0] == flight)[0].split(' ')[1];
+            a[1].push({ 'Destination': dest.join(' '), ['Status']: status });
+        } else {
+            a[0].push({ 'Destination': dest.join(' '), ['Status']: 'Ready to fly' });
         }
     }
+
+    let readyAndCancelArr = list.reduce((a, b) => {
+        let [flight, ...dest] = b.split(' ');
+        statusHandler(flight, a, dest);
+        return a;
+    }, [[], []]);
+
+    return data[2][0] === 'Ready to fly' ? readyAndCancelArr[0].map(x => JSON.stringify(x)).join('\n') : readyAndCancelArr[1].map(x => JSON.stringify(x)).join('\n')
 }
-solve([['WN269 Delaware',
+console.log(solve([['WN269 Delaware',
     'FL2269 Oregon',
     'WN498 Las Vegas',
     'WN3145 Ohio',
@@ -53,6 +30,6 @@ solve([['WN269 Delaware',
 ['DL2120 Cancelled',
     'WN612 Cancelled',
     'WN1173 Cancelled',
-    'SK430 Cancelled'],
-['Cancelled']
-])
+    'SK330 Cancelled'],
+['Ready to fly']
+]));
