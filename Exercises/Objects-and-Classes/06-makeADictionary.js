@@ -1,15 +1,24 @@
 function solve(data) {
-    data.reduce((a, b) => {
-        let [k, v] = Object.entries(JSON.parse(b))[0];
-        a[k] = v;
-        return a;
-    }, {});
-
-    let r = '';
-    for (const k of Object.keys(dict).sort((a, b) => a.localeCompare(b))) {
-        r += `Term: ${k} => Definition: ${dict[k]}\n`;
+    function output(arr) {
+        let r = '';
+        arr.forEach(x => r += `Term: ${x[0]} => Definition: ${x[1]}\n`);
+        return r;
     }
-    return r;
+    function objectGenerator(element, agg) {
+        let currO = JSON.parse(element);
+        let [k, v] = Object.entries(currO)[0];
+        agg[k] = v;
+    }
+    const sortKeys = (a, b) => a[0].localeCompare(b[0]);
+
+    let arr = Object.entries(
+        data.reduce((agg, element) => {
+            objectGenerator(element, agg);
+            return agg;
+        }, {})
+    ).sort(sortKeys);
+
+    return output(arr);
 }
 console.log(solve([
     '{"Coffee":"A hot drink made from the roasted and ground seeds (coffee beans) of a tropical shrub."}',

@@ -1,40 +1,45 @@
-function solve(browsers, commands) {
-    commands.forEach(currCommand => {
-        let command = currCommand.split(' ')[0];
-        let site = currCommand.split(' ')[1];
-        if (command == 'Open') {
-            browsers['Open Tabs'].push(site);
-            browsers['Browser Logs'].push(currCommand);
-
-        } else if (command == 'Close') {
-            if (browsers['Open Tabs'].includes(site)) {
-                let indexOf = browsers['Open Tabs'].indexOf(site);
-                let closedSite = browsers['Open Tabs'][indexOf];
-                browsers['Open Tabs'].splice(indexOf, 1);
-                browsers['Recently Closed'].push(closedSite);
-                browsers['Browser Logs'].push(currCommand);
+function solve(browser, commands) {
+    const commandsHandler = {
+        'Open': (obj, site) => {
+            obj['Open Tabs'].push(site[0]);
+            obj['Browser Logs'].push(`Open ${site[0]}`);
+            return obj;
+        },
+        'Close': (obj, site) => {
+            if (obj['Open Tabs'].includes(site[0])) {
+                obj['Browser Logs'].push(`Close ${site[0]}`);
+                obj['Recently Closed'].push(obj['Open Tabs'].splice(obj['Open Tabs'].indexOf(site[0]), 1)[0]);
             }
-
-        } else {
-            for (const prop in browsers) {
-                if (prop != 'Browser Name') {
-                    browsers[prop].splice(0);
-                }
-            }
+            return obj;
+        },
+        'Clear': (obj) => {
+            obj['Open Tabs'] = [];
+            obj['Recently Closed'] = [];
+            obj['Browser Logs'] = [];
+            return obj;
         }
-    });
+    }
+    function outputFormatter(obj) {
+        let result = `${Object.values(obj)[0]}\n`;
 
-    console.log(browsers['Browser Name']);
-    console.log(`Open Tabs: ${browsers['Open Tabs'].join(', ')}`);
-    console.log(`Recently Closed: ${browsers['Recently Closed'].join(', ')}`);
-    console.log(`Browser Logs: ${browsers['Browser Logs'].join(', ')}`);
+        Object.entries(obj).slice(1).forEach(kvp => {
+            result += `${kvp[0]}: ${kvp[1].join(', ')}\n`;
+        })
+        return result;
+    }
+
+    for (const command of commands) {
+        let [c, ...rest] = command.split(' ');
+        commandsHandler[c](browser, rest);
+    }
+
+    return outputFormatter(browser);
 }
-solve({
-    "Browser Name": "Mozilla Firefox",
-    "Open Tabs": ["YouTube"],
-    "Recently Closed": ["Gmail", "Dropbox"],
-    "Browser Logs": ["Open Gmail", "Close Gmail", "Open Dropbox", "Open YouTube", "Close Dropbox"]
+console.log(solve({
+    "Browser Name": "Google Chrome",
+    "Open Tabs": ["Facebook", "YouTube", "Google Translate"],
+    "Recently Closed": ["Yahoo", "Gmail"],
+    "Browser Logs": ["Open YouTube", "Open Yahoo", "Open Google Translate", "Close Yahoo", "Open Gmail", "Close Gmail", "Open Facebook"]
 },
-    ["Open Wikipedia", "Clear History and Cache", "Open Twitter"]
-
-);
+    ["Close Facebook", 'Close Google', "Open StackOverFlow", "Open Google"]
+));

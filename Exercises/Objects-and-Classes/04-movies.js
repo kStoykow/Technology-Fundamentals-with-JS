@@ -1,7 +1,5 @@
 function solve(data) {
     let collection = [];
-    let result = '';
-
     const commandsMap = {
         addMovie: (line, collection) => {
             let movie = line.substring(line.split(' ')[0].length).trim();
@@ -9,36 +7,32 @@ function solve(data) {
         },
 
         directedBy: (line, collection, c) => {
-            let [movie, autor] = line.split(` ${c} `);
-            for (const obj of collection) {
-                if (obj.name === movie) {
-                    obj.director = autor;
-                }
+            let [movie, director] = line.split(` ${c} `);
+            if (collection.filter(e => e.name == movie).length > 0) {
+                collection.filter(e => e.name == movie)[0][director] = director;
             }
         },
         onDate: (line, collection, c) => {
             let [movie, date] = line.split(` ${c} `);
-            for (const obj of collection) {
-                if (obj.name === movie) {
-                    obj.date = date;
-                }
+            if (collection.filter(e => e.name == movie).length > 0) {
+                collection.filter(e => e.name == movie)[0][date] = date;
             }
         }
     }
 
+    const commands = ['addMovie', 'directedBy', 'onDate'];
+
     for (let line of data) {
-        let commands = ['addMovie', 'directedBy', 'onDate'];
         let c = line.split(' ').find(e => commands.includes(e));
         commandsMap[c](line, collection, c);
     }
 
-    for (let obj of collection) {
-        if (Object.keys(obj).length == 3) {
-            result += `${JSON.stringify(obj)}\n`;
+    return collection.reduce((a, b) => {
+        if (Object.keys(b).length == 3) {
+            a += `${JSON.stringify(b)}\n`;
         }
-    }
-
-    return result;
+        return a;
+    }, '');
 }
 console.log(solve(['addMovie Fast and Furious',
     'addMovie Godfather',
