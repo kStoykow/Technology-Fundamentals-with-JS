@@ -17,17 +17,19 @@ function nextGradeValidator(arr) {
         .map(e => {
             e['Grade'] = Number(e['Grade']) + 1;
             return e;
-        })
+        });
 }
 function aggregateValidClasses(arr) {
     return arr.reduce((a, b) => {
         let entries = Object.entries(b);
+
         if (a.filter(e => e.Grade == entries[1][1]).length == 0) {
             a.push({
                 ['Grade']: entries[1][1],
                 ['List of students']: [entries[0][1]],
                 ['Average annual grade from last year']: [entries[2][1]]
-            })
+            });
+
         } else {
             let obj = a.filter(e => e.Grade == entries[1][1])[0];
             obj['List of students'].push(entries[0][1]);
@@ -41,8 +43,7 @@ function outputFormatter(arr) {
     arr.forEach(x => {
         console.log(`${Object.values(x)[0]} Grade 
 List of students: ${Object.values(x)[1].join(', ')}
-Average annual grade from last year: ${(Object.values(x)[2].map(Number).reduce((a, b) => a + b) / Object.values(x)[2].length).toFixed(2)}`
-        )
+Average annual grade from last year: ${(Object.values(x)[2].map(Number).reduce((a, b) => a + b) / Object.values(x)[2].length).toFixed(2)}`);
         console.log();
     })
 }
