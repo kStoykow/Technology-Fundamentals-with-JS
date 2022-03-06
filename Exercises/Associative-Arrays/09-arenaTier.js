@@ -1,4 +1,4 @@
-function solve(data) {
+function gameSimulator(data) {
     let obj = {};
     function objOperations(obj, name, skill, v) {
         if (obj.hasOwnProperty(name) == false) {
@@ -42,8 +42,8 @@ function solve(data) {
             fightHandler(obj, p1, p2);
         }
     }
-    const byPointsAndNames = (a, b) => Object.values(b[1]).reduce((a, b) => a + b) - Object.values(a[1]).reduce((a, b) => a + b) || a[0].localeCompare(b[0])
-    const bySkills = (a, b) => b[1] - a[1] || a[0].localeCompare(b[0])
+    const byPointsAndNames = (a, b) => Object.values(b[1]).reduce((a, b) => a + b) - Object.values(a[1]).reduce((a, b) => a + b) || a[0].localeCompare(b[0]);
+    const bySkills = (a, b) => b[1] - a[1] || a[0].localeCompare(b[0]);
     const skillsParse = ([k, v] = e) => `- ${k} <!> ${v}`;
     const outpuParse = ([name, skills] = e) => {
         let totalPoints = Object.values(skills).reduce((a, b) => a + b);
@@ -64,7 +64,7 @@ function solve(data) {
         .map(outpuParse)
         .join('\n');
 }
-console.log(solve([
+console.log(gameSimulator([
     'Peter -> Duck -> 400',
     'Julius -> Shield -> 150',
     'Gladius -> Heal -> 200',

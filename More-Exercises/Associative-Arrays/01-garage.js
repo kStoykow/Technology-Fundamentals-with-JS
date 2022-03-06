@@ -1,39 +1,29 @@
-function solve(input) {
-    let garagesMap = new Map()
+function solve(data) {
+    let garage = data.reduce((a, b) => {
+        let [n, carInfo] = b.split(' - ');
+        let kvps = carInfo.split(', ').map(x => x.split(': '));
+        let car = {};
 
-    for (let line of input) {
-        let [garage, currCar] = line.split(' - ');
-        let carsInGarage = [];
-
-        if (!garagesMap.has(garage)) {
-            carsInGarage.push(currCar);
-            garagesMap.set(garage, carsInGarage);
-
-        } else {
-            carsInGarage = garagesMap.get(garage);
-            carsInGarage.push(currCar);
-            garagesMap.set(garage, carsInGarage);
+        if (a.hasOwnProperty(n) == false) {
+            a[n] = [];
         }
-    }
+        kvps.map(([k, v]) => car[k] = v);
+        a[n].push(car);
 
-    let garageEntries = [...garagesMap.entries()];
-    let output = '';
+        return a;
+    }, {});
 
-    for (let [garageNum, cars] of garageEntries) {
-        output += `Garage № ${garageNum}\n`;
+    const kvpParse = kvp => kvp.join(' - ');
+    const carsParse = obj => `--- ${Object.entries(obj).map(kvpParse).join(', ')}`;
+    const outputParse = ([n, cars]) => `Garage № ${n}\n${cars.map(carsParse).join('\n')}`;
 
-        for (let currCar of cars) {
-            while (currCar.includes(': ')) {
-                currCar = currCar.replace(': ', ' - ');
-            }
-
-            output += `--- ${currCar}\n`;
-        }
-    }
-
-    console.log(output);
+    return Object.entries(garage)
+        .map(outputParse)
+        .join('\n');
 }
-solve(['1 - color: blue, fuel type: diesel',
-    '1 - color: red, manufacture: Audi',
-    '2 - fuel type: petrol',
-    '4 - color: dark blue, fuel type: diesel, manufacture: Fiat'])
+console.log(solve(
+    ['1 - color: blue, fuel type: diesel',
+        '1 - color: red, manufacture: Audi',
+        '2 - fuel type: petrol',
+        '4 - color: dark blue, fuel type: diesel, manufacture: Fiat']
+));
