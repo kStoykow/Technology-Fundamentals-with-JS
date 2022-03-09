@@ -1,4 +1,4 @@
-function solve(input) {
+function librarySorter(input) {
     let shelfs = [];
     const arrHandler = {
         true: (arr, str) => {
@@ -19,7 +19,7 @@ function solve(input) {
             return arr;
         },
     }
-    function output(arrOfObjects) {
+    function outputParse(arrOfObjects) {
         let result = '';
         const sortByCount = (a, b) => Object.values(b['books']).length - Object.values(a['books']).length;
         const sortByName = (a, b) => a[0].localeCompare(b[0]);
@@ -36,9 +36,9 @@ function solve(input) {
         arrHandler[line.includes(' -> ')](shelfs, line);
     }
 
-    return output(shelfs);
+    return outputParse(shelfs);
 }
-console.log(solve([
+console.log(librarySorter([
     '1 -> history',
     '1 -> action',
     'Death in Time: Criss Bell, mystery',

@@ -1,4 +1,4 @@
-function solve(input) {
+function articleHandler(input) {
     let users = [];
     let articles = [];
     let comments = {};
@@ -27,7 +27,7 @@ function solve(input) {
     }
 
 
-    function output(obj) {
+    function outputParse(obj) {
         let result = '';
         let sortedByUsers = Object.entries(obj).sort((a, b) => b[1].length - a[1].length);
         for (const [article, comments] of sortedByUsers) {
@@ -41,9 +41,9 @@ function solve(input) {
         return result;
     }
 
-    return output(comments);
+    return outputParse(comments);
 }
-console.log(solve(['user aUser123',
+console.log(articleHandler(['user aUser123',
     'someUser posts on someArticle: NoTitle, stupidComment',
     'article Books',
     'article Movies',
