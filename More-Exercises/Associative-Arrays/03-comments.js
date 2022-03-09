@@ -3,57 +3,56 @@ function solve(input) {
     let articles = [];
     let comments = {};
 
-    for (const line of input) {
-        if (line.includes('user')) {
-            let currUser = line.split(' ');
-            currUser.shift();
-            users.push(currUser[0]);
+    for (const e of input) {
+        if (e.includes('user') == true) {
+            let [_, nick] = e.split('user ');
+            users.push(nick);
 
-        } else if (line.includes('article')) {
-            let currArticle = line.split(' ');
-            currArticle.shift();
-            articles.push(currArticle[0]);
+        } else if (e.includes('article') == true) {
+            let [_, article] = e.split('article ');
+            articles.push(article)
 
-        } else {
-            let [user, obj] = line.split(' posts on ');
-            let currArticle = obj.split(': ')[0];
-            let [title, content] = obj.split(': ')[1].split(', ');
+        } else if (e.includes('posts on')) {
+            let [nick, categoryComments] = e.split(' posts on ');
+            let [article, comment] = categoryComments.split(': ');
+            let [title, content] = comment.split(', ');
 
-            if (users.includes(user) && articles.includes(currArticle)) {
-                if (!comments.hasOwnProperty(currArticle)) {
-                    comments[currArticle] = [];
+            if (users.includes(nick) == true && articles.includes(article) == true) {
+                if (comments.hasOwnProperty(article) == false) {
+                    comments[article] = [];
                 }
-
-                comments[currArticle].push({ user, 'title': title, 'content': content });
-
+                comments[article].push({ nick, 'title': title, 'content': content });
             }
         }
     }
-console.log(comments);
 
-    let sortedCategories = Object.keys(comments).sort((a, b) => Object.values(comments[b]).length - Object.values(comments[a]).length);
 
-    for (let currCategory of sortedCategories) {
-        let currComments = comments[currCategory];
-        console.log(`Comments on ${currCategory}`);
-
-        let sortedUsers = currComments.sort((a, b) => a.user.localeCompare(b.user));
-
-        for (const currComment of sortedUsers) {
-            console.log(`--- From user ${currComment['user']}: ${currComment['title']} - ${currComment['content']}`);
+    function output(obj) {
+        let result = '';
+        let sortedByUsers = Object.entries(obj).sort((a, b) => b[1].length - a[1].length);
+        for (const [article, comments] of sortedByUsers) {
+            let sortedUsers = comments.sort((a, b) => Object.values(a)[0].localeCompare(Object.values(b)[0]))
+            result += `Comments on ${article}\n`;
+            for (const user of sortedUsers) {
+                let [name, title, comment] = Object.values(user);
+                result += `--- From user ${name}: ${title} - ${comment}\n`;
+            }
         }
+        return result;
     }
+
+    return output(comments);
 }
-solve(['user aUser123',
+console.log(solve(['user aUser123',
     'someUser posts on someArticle: NoTitle, stupidComment',
     'article Books',
     'article Movies',
     'article Shopping',
-    'user someUser',
+    'user aomeUser',
     'user uSeR4',
     'user lastUser',
+    'uSeR4 posts on Books: I, like them',
     'uSeR4 posts on Books: I like books, I do really like them',
-    'uSeR4 posts on Books: I like boobs, I do really like them',
     'uSeR4 posts on Movies: I also like movies, I really do',
-    'someUser posts on Shopping: title, I go shopping every day',
-    'someUser posts on Movies: Like, I also like movies very much'])
+    'aomeUser posts on Shopping: title, I go shopping every day',
+    'aomeUser posts on Movies: Like, I also like movies very much']));
