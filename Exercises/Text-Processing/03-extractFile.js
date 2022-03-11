@@ -1,9 +1,8 @@
-function solve(input) {
-    let indexOfFile = input.lastIndexOf('\\');
-    let indexOfExtension = input.lastIndexOf('.');
-    let file = input.substring(indexOfFile + 1, indexOfExtension);
-    let extension = input.substring(indexOfExtension + 1);
-    console.log(`File name: ${file}`);
-    console.log(`File extension: ${extension}`);
+function solve(str) {
+    let indexOfFile = str.lastIndexOf('\\');
+    let indexOfExtension = str.lastIndexOf('.');
+    let file = str.substring(indexOfFile + 1, indexOfExtension);
+    let extension = str.substring(indexOfExtension + 1);
+    return [`File name: ${file}`, `File extension: ${extension}`].join('\n');
 }
-solve('C:\\Internal\\training-internal\\Template.pptx')
+console.log(solve('C:\\Internal\\training-internal\\Template.asd.pptx'));

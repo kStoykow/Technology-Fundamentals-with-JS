@@ -1,13 +1,10 @@
-function solve(words, text) {
-    let toFind = words.split(', ');
-    for (const word of toFind) {
-        if (text.includes('*')) {
-            text = text.replace('*'.repeat(word.length), word);
-        }
-    }
-
-    console.log(text);
+function solve(words, str) {
+    let checkers = words.split(', ');
+    const revealWord = e => e.match(/\*+/g) ? checkers.filter(el => el.length == e.length) : e;
+    return str.split(' ')
+        .map(revealWord)
+        .join(' ');
 }
-solve('great, learning',
+console.log(solve('great, learning',
     'softuni is ***** place for ******** new programming languages'
-)
+));

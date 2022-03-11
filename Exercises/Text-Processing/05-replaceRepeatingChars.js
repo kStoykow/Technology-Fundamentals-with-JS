@@ -1,11 +1,14 @@
-function solve(input) {
-    let result = input[0];
-    for (let i = 1; i < input.length; i++) {
-        if (input[i] !== input[i - 1]) {
-            result = result.concat(input[i]);
+function solve(str) {
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] !== str[i - 1]) {
+            result = result + str[i];
         }
     }
-
-    console.log(result);
+    return result;
 }
-solve('aaaaabbbbbcdddeeeedssaa')
+function solve2(str) {
+    return str.split('').filter((e, i) => e != str[i + 1]).join('');
+}
+console.log(solve('aaaaabbbbbcdddeeeedssaa'));
+console.log(solve2('aaaaabbbbbcdddeeeedssaa'));

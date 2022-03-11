@@ -1,6 +1,8 @@
-function solve(input) {
-    for (const char of input) {
-        console.log(char);      
+function solve(str) {
+    let result = '';
+    for (const char of str) {
+        result += `${char}\n`;
     }
+    return result;
 }
-solve('AWord');
+console.log(solve('AWord'));

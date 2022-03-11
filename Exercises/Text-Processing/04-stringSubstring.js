@@ -1,15 +1,17 @@
-function solve(word, input) {
-    let text = input.split(' ');
-
-    for (const currWord of text) {
-        if (word.toLowerCase() == currWord.toLowerCase()) {
-            console.log(word);
-            return;
-        } 
+function solve(search, str) {
+    let text = str.split(' ');
+    for (const e of text) {
+        if (search.toLowerCase() == e.toLowerCase()) {
+            return search;
+        }
     }
-    
-    console.log(`${word} not found!`);  
+    return `${search} not found!`;
 }
-solve('javascript',
-    'JavaScript is the best programming language'
-)
+console.log(solve('javascript', 'JavaScript is the best programming language'));
+
+
+function solve2(search, str) {
+    let regex = new RegExp(`${search}`, 'i');
+    return str.match(regex) != null ? search : `${search} not found!`;
+}
+console.log(solve2('javascript', 'JavaScript is the best programming language'));
