@@ -1,31 +1,16 @@
 function solve(input) {
-    let letter = input[0];
+    let arr = input[0].split(' ');
     let words = input[1];
 
-    for (const word of words) {
-        if (letter.includes('_')) {
-            letter = letter.split(' ');
-
-            for (const i in letter) {
-                if (letter[i].startsWith('_')) {
-                    if (letter[i].length == word.length) {
-                        letter[i] = word;
-                    }
-
-                    if (letter[i].endsWith('.') || letter[i].endsWith(',') || letter[i].endsWith('!')) {
-                        if (letter[i].length - 1 == word.length) {
-                            let commas = letter[i].substring(letter[i].length - 1);
-                            letter[i] = word.concat(commas);
-                        }
-                    }
-                }
-            }
-
-            letter = letter.join(' ');
+    return arr.map(e => {
+        if (e.startsWith('_') && e[e.length - 1].match(/\.|\,|\!|\?|\-/)) {
+            let padding = e[e.length - 1];
+            return words.filter(el => e.length - 1 === el.length)[0] + padding;
+        } else if (e.startsWith('_')) {
+            return words.filter(el => e.length === el.length)[0];
         }
-    }
-
-    console.log(letter);
+        return e;
+    }).join(' ');
 }
-solve(['Hi, grandma! I\'m so ____ to write to you. ______ the winter vacation, so _______ things happened. My dad bought me a sled. Mom started a new job as a __________. My brother\'s ankle is ________, and now it bothers me even more. Every night Mom cooks ___ on your recipe because it is the most delicious. I hope this year Santa will _____ me a robot.',
-    ['pie', 'bring', 'glad', 'During', 'amazing', 'pharmacist', 'sprained']])
+console.log(solve(['Hi, grandma! I\'m so ____ to write to you. ______ the winter vacation, so _______ things happened. My dad bought me a sled. Mom started a new job as a __________. My brother\'s ankle is ________, and now it bothers me even more. Every night Mom cooks ___ on your recipe because it is the most delicious. I hope this year Santa will _____ me a robot.',
+    ['pie', 'bring', 'glad', 'During', 'amazing', 'pharmacist', 'sprained']]));

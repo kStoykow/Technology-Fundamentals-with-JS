@@ -1,24 +1,23 @@
 function solve(input) {
     input = input[0];
+    let obj = {};
 
-    let output = {};
-    let startOf = 0;
-    for (const char of input) {
-        let indexOf = input.indexOf(char, startOf);
-
-        if (!output.hasOwnProperty(char)) {
-            output[char] = [];
-            output[char].push(indexOf);
-
-        } else {
-            output[char].push(indexOf);
+    function outputParse(obj) {
+        let r = '';
+        for (const key in obj) {
+            r += `${key}:${obj[key].join('/')}\n`;
         }
-
-        startOf = indexOf + 1;
+        return r;
+    }
+    
+    for (let i = 0; i < input.length; i++) {
+        let charIndex = input.indexOf(input[i], i);
+        if (obj.hasOwnProperty(input[i]) == false) {
+            obj[input[i]] = [];
+        }
+        obj[input[i]].push(charIndex);
     }
 
-    for (const key in output) {
-        console.log(`${key}:${output[key].join('/')}`);
-    }
+    return outputParse(obj);
 }
-solve(['abababa'])
+console.log(solve(['abbababa']));

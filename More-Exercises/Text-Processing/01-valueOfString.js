@@ -1,35 +1,38 @@
 function solve(input) {
-    let text = input.shift();
-    let toFind = input.shift();
-    let sum = 0;
-    let isValidLowerCase = (symbol) => {
-        return symbol.charCodeAt(0) >= 97 && symbol.charCodeAt(0) <= 122;
+    let str = input.shift();
+    let search = input.shift();
+
+    const isValidLowerCase = (char) => {
+        return char.charCodeAt(0) >= 97 && char.charCodeAt(0) <= 122;
     }
 
-    let isValidUpperCase = (symbol) => {
-        return symbol.charCodeAt(0) >= 65 && symbol.charCodeAt(0) <= 90;
+    const isValidUpperCase = (char) => {
+        return char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 90;
     }
 
-    if (toFind == 'LOWERCASE') {
-        for (const char of text) {
-            if (char == char.toLowerCase()) {
-                if (isValidLowerCase(char)) {
-                    sum += char.charCodeAt(0);
-                }
-            }
+    function outputParse(str, param) {
+        if (param == 'LOWERCASE') {
+            return `The total sum is: ${str.split('')
+                .reduce((a, b) => {
+                    if (isValidLowerCase(b)) {
+                        a += b.charCodeAt(0);
+                    }
+                    return a;
+                }, 0)}`;
+
+
+        } else {
+            return `The total sum is: ${str.split('')
+                .reduce((a, b) => {
+                    if (isValidUpperCase(b)) {
+                        a += b.charCodeAt(0);
+                    }
+                    return a;
+                }, 0)}`;
         }
-
-    } else {
-        for (const char of text) {
-            if (char == char.toUpperCase()) {
-                if (isValidUpperCase(char)) {
-                    sum += char.charCodeAt(0);
-                }
-            }
-        }
     }
 
-    console.log(`The total sum is: ${sum}`);
+    return outputParse(str, search);
 }
-solve(['AC/DC',
-    'UPPERCASE'])
+console.log(solve(['AC/DC',
+    'UPPERCASE']));

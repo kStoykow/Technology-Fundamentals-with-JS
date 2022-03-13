@@ -1,21 +1,16 @@
-function solve(text) {
-    const isUpperCase = (symbol) => {
-        return symbol == symbol.toUpperCase();
-    };
+function solve(str) {
+    let words = [];
+    let word = '';
 
-    let result = [];
-    let currWord = text[0];
-
-    for (let char = 1; char < text.length; char++) {
-        if (isUpperCase(text[char])) {
-            result.push(currWord);
-            currWord = text[char];
+    for (let e of str) {
+        if (e == e.toLocaleUpperCase() && word !== '') {
+            words.push(word);
+            word = e;
         } else {
-            currWord += text[char];
+            word += e;
         }
     }
-
-    result.push(currWord);
-    console.log(result.join(', '));
+    words.push(word);
+    return words.join(', ');
 }
-solve('SplitMeIfYouCanHaHaYouCantOrYouCan')
+console.log(solve('SplitMeIfYouCanHaHaYouCantOrYouCan'));

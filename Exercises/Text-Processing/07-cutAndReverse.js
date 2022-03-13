@@ -1,10 +1,11 @@
-function solve(input) {
-    let indexOf = input.length / 2;
-    let one = input.substr(0, indexOf);
-    let two = input.substr(indexOf);
-    let first = one.split('').reverse();
-    let second = two.split('').reverse();
-    console.log(first.join(''));
-    console.log(second.join(''));
+function solve(str) {
+    let arr = str.split('');
+    let first = new Array(arr.length / 2);
+    let second = new Array(arr.length / 2);
+    for (let i = 0; i < arr.length / 2; i++) {
+        first[i] = arr[i];
+        second[arr.length - 1 - i] = arr[arr.length - 1 - i];
+    }
+    return [first.reverse().join(''), second.reverse().join('')].join('\n');
 }
-solve('tluciffiDsIsihTgnizamAoSsIsihT')
+console.log(solve('tluciffiDsIsihTgnizamAoSsIsihT'));
