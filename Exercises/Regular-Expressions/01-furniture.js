@@ -1,29 +1,36 @@
-function solve(input) {
-    let pattern = />>(?<name>\w+)<<(?<price>\d+[.]?\d+)!(?<quantity>\d+)/g
-    let totalMoney = 0;
-    let furnitures = [];
-    let line = input.shift();
+function solve(data) {
+    let arr = [];
+    let totalPrice = 0;
+    let validPurchase = />>\w+<<\d+[.]?\d+\!\d+/g;
 
-    while (line != 'Purchase') {
-        if (line.match(pattern)) {
-            let result = pattern.exec(line);
-            furnitures.push(result.groups.name);
-            totalMoney += (result.groups.price * result.groups.quantity);
+    function outputParse(arr) {
+        let result = 'Bought furniture:\n';
+        arr.length > 0 ? result += `${arr.join('\n')}\n` : result;
+        result += `Total money spend: ${totalPrice.toFixed(2)}`;
+        return result;
+    }
+
+    for (const e of data) {
+        if (e == 'Purchase' == true) {
+            break;
         }
-
-        line = input.shift();
+        if (e.match(validPurchase)) {
+            let name = e.match(/[A-Z][A-Za-z]+/g)[0];
+            let price = e.match(/\d+\.?\d+/g)[0];
+            let quantity = e.match(/!\d+/g)[0].substring(1);
+            arr.push(name);
+            totalPrice += Number(price) * Number(quantity);
+        }
     }
 
-    console.log('Bought furniture:');
-    for (const item of furnitures) {
-        console.log(item);
-    }
-
-    console.log(`Total money spend: ${totalMoney.toFixed(2)}`);
+    return outputParse(arr);
 }
-solve(['>>Sofa<<100.22!3',
-    '>>TV<<200.1!2',
-    '>>TV<<200.1!1',
-    '>Invalid<<!5',
-    'Purchase',
-])
+console.log(
+    solve([
+        '>>Sofa<<100.22!32',
+        '>>TV<<12!2',
+        '>>TV<<200!1',
+        '>Invalid<<2!5',
+        'Purchase',
+    ])
+);

@@ -1,12 +1,24 @@
 function solve(input) {
-    let pattern = /\b(?<day>\d{2})(-|.|\/)(?<month>[A-Z][a-z]{2})\2(?<year>\d{4})\b/g;
+    let validDate = /\b\d{2}(.|-|\/)[A-Z][a-z]{2}\1\d{4}/g;
+    let matches = input.match(validDate);
+    let result = '';
 
-    while ((currDate = pattern.exec(input)) != null) {
-        let day = currDate.groups['day'];
-        let month = currDate.groups['month'];
-        let year = currDate.groups['year'];
-        console.log(`Day: ${day}, Month: ${month}, Year: ${year}`);
+    for (const date of matches) {
+        let delimiter = date[2];
+        let [d, m, y] = date.split(delimiter);
+        result += `Day: ${d}, Month: ${m}, Year: ${y}\n`;
     }
+    return result;
 }
-solve("13/Jul/1928, 10-Nov-1934, , 01/Jan-1951,f 25.Dec.1937 23/09/1973, 1/Feb/2016"
-)
+
+function solve(input) {
+    let validDate = /\b\d{2}(.|-|\/)[A-Z][a-z]{2}\1\d{4}/g;
+    let matches = input.matchAll(validDate);
+    let r = '';
+    for (const date of matches) {
+        let [d, m, y] = date[0].split(date[1]);
+        r += `Day: ${d}, Month: ${m}, Year: ${y}\n`;
+    }
+    return r;
+}
+console.log(solve("13/Jul/1928, 10-Nov-1934, , 01/Jan-1951,f 25.Dec.1937 23/09/1973, 1/Feb/2016"));

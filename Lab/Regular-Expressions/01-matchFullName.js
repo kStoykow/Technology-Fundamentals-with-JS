@@ -1,12 +1,7 @@
-function solve(input) {
-    let regex = /\b[A-Z][a-z]{1,} [A-Z][a-z]{1,}\b/g;
-    let validNames = [];
+function solve(str) {
+    let validName = /\b[A-Z][a-z]+ [A-Z][a-z]+/g;
+    let output = str.match(validName);
 
-    while ((currName = regex.exec(input)) != null) {
-        validNames.push(currName[0]);
-    }
-
-    console.log(validNames.join(' '));
+    console.log(output.join(' '));
 }
-solve("Ivan Ivanov, Ivan ivanov, ivan Ivanov, IVan Ivanov, Test Testov, Ivan	Ivanov"
-)
+console.log(solve("Ivan Ivanov, Ivan ivanov, ivan Ivanov, IVan Ivanov, Test Testov, Ivan	Ivanov"));

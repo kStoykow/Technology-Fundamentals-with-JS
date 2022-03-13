@@ -1,48 +1,54 @@
 function solve(input) {
-    let messageCount = Number(input.shift());
+    input.shift();
+    let keyPattern = /[s,t,a,r]/gi;
+    let validInputPattern = /@(?<name>[A-z]+)[^@\-!:>]*:\d+[^@\-!:>]*!(?<type>A|D)![^@\-!:>]*->\d+/g;
     let attackedPlanets = [];
     let destroyedPlanets = [];
-    let pattern = /.*?@(?<name>[A-Z][a-z]+)[^@,-,!,:,>]*?:(?<population>\d+)[^@,-,!,:,>]*?!(?<type>(A|D))![^@,-,!,:,>]*?->(?<count>\d+)/g;
 
-    for (const message of input) {
+    function strDecrypt(line) {
         let key = 0;
-        let keyPattern = /[s,t,a,r]/gi;
-        let matches = message.match(keyPattern);
-
-        if (matches != null) {
-            key = matches.length;
+        let str = line;
+        if (line.match(keyPattern)) {
+            key = line.match(keyPattern).length;
+            str = line.split('').map(e => String.fromCharCode(e.charCodeAt(0) - key)).join('');
         }
+        return str;
+    }
+    function outputParse(arr, arr2) {
+        let r = `Attacked planets: ${arr.length}\n`;
+        r += arr.map(e => `-> ${e}\n`).join('');
+        r += `Destroyed planets: ${arr2.length}\n`;
+        r += arr2.map(e => `-> ${e}\n`).join('');
+        return r;
+    }
 
-        let decrypted = '';
-        for (const char of message) {
-            let charCode = char.charCodeAt(0);
-            decrypted += String.fromCharCode(charCode - key);
-        }
+    const planetsMap = {
+        'A': (arrAtack, arrDest, name) => {
+            arrAtack.push(name);
+            return [arrAtack, arrDest]
 
-        if (decrypted.match(pattern)) {
-            let currAttack = pattern.exec(decrypted);
-            if (currAttack.groups.type == "A") {
-                attackedPlanets.push(currAttack.groups.name);
-            } else {
-                destroyedPlanets.push(currAttack.groups.name);
-            }
+        },
+        'D': (arrAtack, arrDest, name) => {
+            arrDest.push(name);
+            return [arrAtack, arrDest]
+        },
+    }
+    const sortedByName = (a, b) => a.localeCompare(b);
+
+    for (const line of input) {
+        let str = strDecrypt(line);
+
+        for (const match of str.matchAll(validInputPattern)) {
+            [attackedPlanets, destroyedPlanets] = planetsMap[match.groups.type](attackedPlanets, destroyedPlanets, match.groups.name);
         }
     }
 
-    attackedPlanets.sort((a, b) => a.localeCompare(b));
-    destroyedPlanets.sort((a, b) => a.localeCompare(b));
+    let sortedA = attackedPlanets.sort(sortedByName);
+    let sortedD = destroyedPlanets.sort(sortedByName);
 
-    console.log(`Attacked planets: ${attackedPlanets.length}`);
-    for (const planet of attackedPlanets) {
-        console.log(`-> ${planet}`);
-    }
-
-    console.log(`Destroyed planets: ${destroyedPlanets.length}`);
-    for (const planet of destroyedPlanets) {
-        console.log(`-> ${planet}`);
-    }
+    return outputParse(sortedA, sortedD);
 }
-solve(['3',
+console.log(solve(['3',
     "tt(''DGsvywgerx>6444444444%H%1B9444",
-    'GQhrr|A977777(H(TTTT',
-    'EHfsytsnhf?8555&I&2C9555SR'])
+    'EHfqyqwnhf?8555&I&2C9555SR',
+    'EHfsytsnhf?8555&I&2C9555SR']));

@@ -1,23 +1,26 @@
-function solve(input) {
-    let validOrder = /\%(?<name>[A-Z][a-z]+)\%[^|$%.]*\<(?<product>\w+)\>[^|$%.]*\|(?<count>\d+)\|[^|$%.]*?(?<price>\d{1,}[.]?\d+)\$/g;
-    let totalMoney = 0;
-    let line = input.shift();
+function solve(data) {
+    let validDataPattern = /\%(?<name>[A-Z][a-z]+)\%[^|$%.]*\<(?<product>\w+)\>[^|$%.]*\|(?<count>\d+)\|[^|$%.]*?(?<price>\d{1,}[.]?\d+)\$/g;
+    let total = 0;
+    let r = '';
 
-    while (line != 'end of shift') {
-        if (line.match(validOrder)) {
-            let currOrder = validOrder.exec(line);
-
-            let currTotal = currOrder.groups.price * currOrder.groups.count;
-            totalMoney += currTotal;
-            console.log(`${currOrder.groups.name}: ${currOrder.groups.product} - ${currTotal.toFixed(2)}`);
+    for (const line of data) {
+        if (line == 'end of shift' == true) {
+            break;
         }
 
-        line = input.shift();
+        for (const match of line.matchAll(validDataPattern)) {
+            r += `${match.groups.name}: ${match.groups.product} - ${(match.groups.price * match.groups.count).toFixed(2)}\n`;
+            total += match.groups.price * match.groups.count;
+        }
     }
-    
-    console.log(`Total income: ${totalMoney.toFixed(2)}`);
+
+    r += `Total income: ${total.toFixed(2)}`;
+    return r;
 }
-solve(['%George%<Croissant>|2|10.3$',
+console.log(solve(['%George%<Croissant>|2|10.3$',
     '%Peter%<Gum>|1|1.3$',
     '%Maria%<Cola>|1|2.4$',
-    'end of shift'])
+    '%InvalidName%<Croissant>|2|10.3$',
+    '%Peter%<Gum>1.3$',
+    '%Maria%<Cola>|1|2.4',
+    'end of shift']));
