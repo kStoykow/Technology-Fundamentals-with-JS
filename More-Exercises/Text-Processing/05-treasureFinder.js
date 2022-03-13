@@ -1,36 +1,37 @@
 function solve(input) {
-    let keys = input.shift().split(' ');
-    let string = input.shift();
+    let keys = input.shift().split(' ').map(Number);
+    let decrypted = [];
 
-    while (string != 'find') {
+    const strParse = (e, i) => String.fromCharCode(e.charCodeAt(0) - keys[i % keys.length]);
 
-        let counter = 0;
-        let currResult = '';
+    function outputParse(arr) {
+        let result = '';
+        for (const e of arr) {
+            let type = e.substring(e.indexOf('&') + 1, e.lastIndexOf('&'));
+            let coordinates = e.substring(e.indexOf('<') + 1, e.indexOf('>'));
 
-        for (const char of string) {
-            let charCode = Number(char.charCodeAt(0));
-            if (keys[counter]) {
-                currResult += String.fromCharCode(charCode - keys[counter]);
-                counter++;
-            } else {
-                counter = 0;
-                currResult += String.fromCharCode(charCode - keys[counter]);
-                counter++;
-            }
+            result += `Found ${type} at ${coordinates}\n`;
         }
-
-        let typeStart = currResult.indexOf('&');
-        let typeEnd = currResult.lastIndexOf('&');
-        let type = currResult.substring(typeStart + 1, typeEnd);
-        let coordinateStart = currResult.indexOf('<');
-        let coordinateEnd = currResult.indexOf('>');
-        let coordinate = currResult.substring(coordinateStart + 1, coordinateEnd);
-
-        console.log(`Found ${type} at ${coordinate}`);
-        string = input.shift();
+        return result;
     }
+
+    for (let e of input) {
+        if (e == 'find' == true) {
+            break;
+        }
+        decrypted.push(e.split('').map(strParse).join(''));
+    }
+
+    // return decrypted.map(e => {
+    //     let type = e.substring(e.indexOf('&') + 1, e.lastIndexOf('&'));
+    //     let coordinates = e.substring(e.indexOf('<') + 1, e.indexOf('>'));
+    //     return `Found ${type} at ${coordinates}`;
+    // }).join('\n');
+
+    return outputParse(decrypted);
 }
-solve(['1 2 1 3',
+console.log(solve(['1 2 1 3',
     'ikegfp\'jpne)bv\=41P83X@',
+    'find',
     'ujfufKt)Tkmyft\'duEprsfjqbvfv\=53V55XA',
-    'find'])
+    'find']));

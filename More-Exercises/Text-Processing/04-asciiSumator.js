@@ -1,20 +1,15 @@
 function solve(input) {
-    let firstChar = input.shift();
-    let secondChar = input.shift();
-    let text = input.shift();
-    let totalSum = 0;
+    let [a, b] = [input[0], input[1]].sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
+    let str = input[2];
+    let sum = 0;
 
-    for (const char of text) {
-        if (char.charCodeAt(0) > firstChar.charCodeAt(0) && char.charCodeAt(0) < secondChar.charCodeAt(0)) {
-            totalSum += char.charCodeAt(0);
-
-        } else if (char.charCodeAt(0) < firstChar.charCodeAt(0) && char.charCodeAt(0) > secondChar.charCodeAt(0)) {
-            totalSum += char.charCodeAt(0);
+    for (const char of str) {
+        if (char.charCodeAt(0) > a.charCodeAt(0) && char.charCodeAt(0) < b.charCodeAt(0)) {
+            sum += char.charCodeAt(0);
         }
     }
-
-    console.log(totalSum);
+    return sum;
 }
-solve(['a',
+console.log(solve(['a',
     '1',
-    'jfe392$#@j24ui9ne#@$'])
+    'jfe392$#@j24ui9ne#@$']));
