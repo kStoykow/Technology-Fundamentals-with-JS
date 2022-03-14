@@ -1,15 +1,11 @@
 function solve(input) {
-    let pattern = /(^|(?<=\s))(([a-z0-9]+)([\.\-_]?)([a-z0-9]+)(@)([a-z]+([\.\-_][a-z]+)+))(\b|(?=\s))/gi;
-    let validEmails = [];
-    let allEmails = input[0].match(pattern);
-    if (allEmails != null) {
-        for (const currEmail of allEmails) {
-            validEmails.push(currEmail);
+    let pattern = /\s[a-z0-9]+[\.\-_]?[a-z0-9]+?@[a-z]+([\.\-_][a-z]+)+/gi;
+    let result = '';
+    if (input.match(pattern) != null) {
+        for (const e of input.match(pattern)) {
+            result += `${e.trim()}\n`;
         }
     }
-
-    for (const email of validEmails) {
-        console.log(email);
-    }
+    return result;
 }
-solve(['steve@invali.sd- and steve.parker@softuni.de.'])
+console.log(solve('steve@invali.sd- and steve.parker@softuni.de.'));
