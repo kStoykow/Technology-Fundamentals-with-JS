@@ -23,13 +23,16 @@ function solve(input) {
     }
 
     let text = thirdPart.split(' ');
-
+    let r = '';
     for (const letter of capitals) {
         for (const word of text) {
             if (letter == word[0] && word.length == myMap.get(letter)) {
-                console.log(word);
+                r += `${word}\n`;
             }
         }
     }
+    return r;
 }
-solve(['Urgent"Message.TO$#POAML#|readData79:05:79:0!2reme80:03--23:11{79:05}tak{65:11ar}!77:!23--)77:05ACCSS76:05ad|Remedy Por Ostream :Istream Post sOffices Office Of Ankh-Morpork MR.LIPWIG Mister Lipwig'])
+console.log(
+    solve(['Urgent"Message.TO$#POAML#|readData79:05:79:0!2reme80:03--23:11{79:05}tak{65:11ar}!77:!23--)77:05ACCSS76:05ad|Remedy Por Ostream :Istream Post sOffices Office Of Ankh-Morpork MR.LIPWIG Mister Lipwig'])
+    );

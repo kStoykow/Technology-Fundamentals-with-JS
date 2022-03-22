@@ -2,16 +2,14 @@ function solve(input) {
     let delimitePattern = /[\D]+[\d]+/g;
     let wordPattern = /[\D]+/g;
     let countPattern = /[\d]+/g;
-    let text = input[0].match(delimitePattern);
-    let result = '';
+    let text = input[0].matchAll(delimitePattern);
+    let word = '';
 
     for (const message of text) {
-        let currMsg = message.match(wordPattern)[0].repeat(message.match(countPattern)).toUpperCase();
-        result += currMsg;
+        let currMsg = message[0].match(wordPattern)[0].repeat(message[0].match(countPattern)).toUpperCase();
+        word += currMsg;
     }
-
-    let set = new Set(result);
-    console.log(`Unique symbols used: ${set.size}`);
-    console.log(result);
+    let set = new Set(word);
+    return `Unique symbols used: ${set.size}\n${word}`;
 }
-solve(["aSd2&5s@1"])
+console.log(solve(["aSd2&5s@1"]));

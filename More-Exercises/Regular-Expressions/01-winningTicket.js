@@ -1,33 +1,32 @@
 function solve(input) {
-    let splitPattern = /[, ]+/g;
-    let allTickets = input[0].split(splitPattern);
+    let allTickets = input.split(/[, ]+/g);
     let validPattern = /(\${6,10}|\#{6,10}|\^{6,10}|\@{6,10})/g;
-    let result = [];
+    let result = '';
 
     for (let ticket of allTickets) {
         if (ticket.length == 20) {
-            let leftSide = ticket.substring(0, 10).match(validPattern);
-            let rightSide = ticket.substring(10).match(validPattern);
+            let left = ticket.substring(0, 10).match(validPattern);
+            let right = ticket.substring(10).match(validPattern);
 
-            if ((leftSide != null && rightSide != null) && leftSide[0][0] == rightSide[0][0]) {
-                let matchLength = Math.min(leftSide[0].length, rightSide[0].length);
-                let symbol = leftSide[0][0];
+            if ((left != null && right != null) && left[0][0] == right[0][0]) {
+                let matchLength = Math.min(left[0].length, right[0].length);
+                let symbol = left[0][0];
 
-                if (leftSide[0].length == 10 && rightSide[0].length == 10) {
-                    result.push(`ticket "${ticket}" - ${matchLength}${symbol} Jackpot!`);
+                if (left[0].length == 10 && right[0].length == 10) {
+                    result += `ticket "${ticket}" - ${matchLength}${symbol} Jackpot!\n`;
                 } else {
-                    result.push(`ticket "${ticket}" - ${matchLength}${symbol}`);
+                    result += `ticket "${ticket}" - ${matchLength}${symbol}\n`;
                 }
 
             } else {
-                result.push(`ticket "${ticket}" - no match`);
+                result += `ticket "${ticket}" - no match\n`;
             }
 
         } else {
-            result.push('invalid ticket');
+            result += 'invalid ticket\n';
         }
     }
 
-    console.log(result.join('\n'));
+    return result;
 }
-solve(['$$$$$$$$$$#$$$$$$$$$,  validticketnomatch:('])
+console.log(solve('$$$$$$$$$$#$$$$$$$$$,  validticketnomatch:('));
